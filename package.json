@@ -10,8 +10,13 @@
     "package": "plasmo package",
     "test": "jest"
   },
+  "eslintConfig": {
+    "extends": "@izayl/eslint-config"
+  },
   "dependencies": {
-    "ethers": "^6.0.2",
+    "@ethersproject/abstract-provider": "^5.7.0",
+    "@plasmohq/messaging": "^0.1.1",
+    "ethers": "^5.7.2",
     "jest": "^29.4.2",
     "plasmo": "0.64.5",
     "react": "18.2.0",
@@ -19,12 +24,14 @@
     "wretch": "^2.4.1"
   },
   "devDependencies": {
+    "@izayl/eslint-config": "^1.0.8",
     "@plasmohq/prettier-plugin-sort-imports": "3.6.1",
     "@types/chrome": "0.0.210",
     "@types/jest": "^29.4.0",
     "@types/node": "18.11.18",
     "@types/react": "18.0.27",
     "@types/react-dom": "18.0.10",
+    "eslint": "^8.36.0",
     "prettier": "2.8.3",
     "ts-jest": "^29.0.5",
     "typescript": "4.9.4"

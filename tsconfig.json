@@ -4,12 +4,12 @@
   "include": [
     "./overrides.d.ts",
     ".plasmo/index.d.ts",
-    "./**/*.ts",
-    "./**/*.tsx"
+    "./src/*.ts",
+    "./src/*.tsx"
   ],
   "compilerOptions": {
     "paths": {
-      "~*": ["./*"]
+      "~/*": ["./src/*"]
     },
     "baseUrl": "."
   }
