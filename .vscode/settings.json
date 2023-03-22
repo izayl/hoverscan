@@ -1,3 +1,11 @@
 {
-  "cSpell.words": ["arbitrum", "heco", "Numberish", "plasmo", "plasmohq"]
+  "cSpell.words": [
+    "arbitrum",
+    "heco",
+    "Hoverscan",
+    "Numberish",
+    "plasmo",
+    "plasmohq"
+  ],
+  "typescript.tsdk": "node_modules/typescript/lib"
 }

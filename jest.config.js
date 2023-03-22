@@ -1,9 +1,9 @@
 /** @type {import('ts-jest').JestConfigWithTsJest} */
 module.exports = {
-  preset: "ts-jest",
-  testEnvironment: "node",
+  preset: 'ts-jest',
+  testEnvironment: 'js-dom',
   moduleNameMapper: {
-    "^~src/(.*)$": "<rootDir>/src/$1"
+    '^~lib/(.*)$': '<rootDir>/lib/$1',
   },
-  setupFiles: ["dotenv/config"]
+  setupFiles: ['dotenv/config'],
 }
