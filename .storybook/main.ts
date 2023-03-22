@@ -1,4 +1,5 @@
-import type { StorybookConfig } from "@storybook/react-webpack5";
+import type { StorybookConfig } from "@storybook/react-webpack5"
+
 const config: StorybookConfig = {
   stories: ["../src/**/*.mdx", "../src/**/*.story.@(js|jsx|ts|tsx)"],
   addons: [
@@ -13,5 +14,6 @@ const config: StorybookConfig = {
   docs: {
     autodocs: "tag",
   },
-};
-export default config;
+}
+
+export default config
