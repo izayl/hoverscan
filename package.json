@@ -22,7 +22,7 @@
     "build-storybook": "storybook build"
   },
   "eslintConfig": {
-    "extends": "@izayl/eslint-config"
+    "extends": "@izayl"
   },
   "dependencies": {
     "@ethersproject/abstract-provider": "^5.7.0",
