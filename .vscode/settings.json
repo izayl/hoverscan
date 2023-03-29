@@ -1,11 +1,15 @@
 {
   "cSpell.words": [
     "arbitrum",
+    "ftmscan",
     "heco",
     "Hoverscan",
     "Numberish",
     "plasmo",
-    "plasmohq"
+    "plasmohq",
+    "polygonscan",
+    "AVAX",
+    "snowtrace",
   ],
   "typescript.tsdk": "node_modules/typescript/lib"
 }
