@@ -2,27 +2,27 @@
 import React, { memo } from 'react'
 import type { IconProps } from '.'
 
-const Close: React.FC<IconProps> = ({
-  size = 18,
+const ChevronRight: React.FC<IconProps> = ({
+  size = 16,
   width,
   height,
   ...props
 }) => {
   return (
     <svg
-      viewBox="0 0 18 18"
+      viewBox="0 0 16 16"
       fill="none"
       height={size || height}
       width={size || width}
       {...props}
       xmlns="http://www.w3.org/2000/svg"
     >
-      <path d="M13.5 4.5L4.5 13.5M4.5 4.5L13.5 13.5" stroke="#333333" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+      <path d="M6 12L10 8L6 4" stroke="black" strokeLinecap="round" strokeLinejoin="round"/>
     </svg>
 
   )
 }
 
-const MemoClose = memo(Close)
+const MemoChevronRight = memo(ChevronRight)
 
-export default MemoClose
+export default MemoChevronRight

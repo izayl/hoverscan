@@ -20,6 +20,7 @@ export { default as Sun } from './Sun'
 export { default as Moon } from './Moon'
 export { default as ENSMark } from './ENS'
 export { default as UNSMark } from './UNS'
+export { default as ChevronRight } from './ChevronRight'
 
 const IconWrapper = styled('span', {
   display: 'flex',

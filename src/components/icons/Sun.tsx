@@ -1,6 +1,6 @@
 
 import React, { memo } from 'react'
-import { IconProps } from '.'
+import type { IconProps } from '.'
 
 const Sun: React.FC<IconProps> = ({
   size = 18,
