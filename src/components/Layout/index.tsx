@@ -74,3 +74,17 @@ export const Text = styled('div', {
   fontSize: 15,
   lineHeight: 1.5,
 })
+
+export const Card = styled('div', {
+  p: 16,
+  display: 'flex',
+  flexDirection: 'column',
+  background: '$bg0',
+  gap: '$container',
+  minWidth: 340,
+  maxWidth: 400,
+  boxShadow: '0px 3.2px 7.2px rgba(0, 0, 0, 0.132), 0px 0.6px 1.8px rgba(0, 0, 0, 0.108)',
+  borderRadius: 6,
+
+  fontFamily: '$sans',
+})
