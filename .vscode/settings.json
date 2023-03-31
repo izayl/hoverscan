@@ -1,6 +1,8 @@
 {
   "cSpell.words": [
     "arbitrum",
+    "AVAX",
+    "blockies",
     "ftmscan",
     "heco",
     "Hoverscan",
@@ -8,8 +10,8 @@
     "plasmo",
     "plasmohq",
     "polygonscan",
-    "AVAX",
     "snowtrace",
+    "viem"
   ],
   "typescript.tsdk": "node_modules/typescript/lib"
 }
