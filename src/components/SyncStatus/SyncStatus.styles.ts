@@ -14,7 +14,8 @@ export const SyncButton = styled('div', {
 
   '&::before': {
     content: '',
-    size: 8,
+    width: 8,
+    height: 8,
     borderRadius: '50%',
   },
 

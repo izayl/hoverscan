@@ -4,7 +4,7 @@ import { styled } from '~/stitches.config'
 export const StyledOverview = styled('div', {
   display: 'flex',
   borderRadius: 8,
-  p: 12,
+  padding: 12,
   gap: 12,
   alignItems: 'center',
   cursor: 'pointer',
@@ -16,7 +16,8 @@ export const StyledOverview = styled('div', {
 })
 
 export const NetworkImage = styled('img', {
-  size: 28,
+  height: 28,
+  width: 28,
   borderRadius: '50%',
 })
 
@@ -47,5 +48,5 @@ export const OverviewInfo = styled('div', {
 })
 
 export const IndicatorRight = styled(ChevronRight, {
-  ml: 'auto',
+  marginLeft: 'auto',
 })
