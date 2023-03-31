@@ -1,3 +1,4 @@
+import React from 'react'
 import { Column, Row } from '../Layout'
 import { IndicatorRight, NetworkImage, NetworkName, OverviewInfo, StyledOverview } from './NetworkOverview.styles'
 import type { Network } from '~/lib/constants/network'

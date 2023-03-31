@@ -1,12 +1,17 @@
+import React from 'react'
 import { Bookmark, Close, Icon, Pin, Sun } from '../icons'
 import { Card, Column, Row, Text } from '../Layout'
 
 type HoverCardProps = {
-  open?: boolean
   address?: string
+  onClose?: () => void
 }
 
-const Header = () => {
+const Header: React.FC<{
+  onClose?: () => void
+}> = ({
+  onClose,
+}) => {
   return (
     <Row justify="between" css={{ width: '100%' }}>
       <Text css={{ fontWeight: 600 }}>Hoverscan</Text>
@@ -15,24 +20,20 @@ const Header = () => {
         {/* <Icon type={<Pin />} /> */}
         {/* <Icon type={<Sun />} /> */}
         {/* <Icon type={<Bookmark />} /> */}
-        <Icon type={<Close />} />
+        <Icon type={<Close />} onClick={onClose} />
       </Row>
     </Row>
   )
 }
 
 const HoverCard: React.FC<React.PropsWithChildren<HoverCardProps>> = ({
-  open = false,
   address = '',
   children,
+  onClose,
 }) => {
-  if (!open) {
-    return null
-  }
-
   return (
     <Card>
-      <Header />
+      <Header onClose={onClose} />
       {children}
     </Card>
   )

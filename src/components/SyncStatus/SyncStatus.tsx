@@ -1,4 +1,4 @@
-import { useMemo } from 'react'
+import React, { useMemo } from 'react'
 import { Row } from '../Layout'
 import { SyncButton } from './SyncStatus.styles'
 import type { Network } from '~/lib/constants/network'

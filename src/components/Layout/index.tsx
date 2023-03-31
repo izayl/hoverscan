@@ -1,3 +1,4 @@
+import React from 'react'
 import { styled } from '@stitches/react'
 
 export const Row = styled('div', {
@@ -76,7 +77,7 @@ export const Text = styled('div', {
 })
 
 export const Card = styled('div', {
-  p: 16,
+  padding: 16,
   display: 'flex',
   flexDirection: 'column',
   background: '$bg0',
@@ -88,3 +89,30 @@ export const Card = styled('div', {
 
   fontFamily: '$sans',
 })
+
+export const Position: React.FC<React.PropsWithChildren<{
+  x: number
+  y: number
+  offset?: number
+}>> = ({
+  x,
+  y,
+  offset = 0,
+  children,
+}) => {
+  // @todo use react portal
+  // @todo detect if the position is out of the viewport
+  // @todo detect window resize
+  return (
+    <div
+      style={{
+        position: 'fixed',
+        left: (x ?? 0),
+        top: (y ?? 0) + offset,
+        zIndex: 2147483647,
+      }}
+    >
+      {children}
+    </div>
+  )
+}

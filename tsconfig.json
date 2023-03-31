@@ -11,7 +11,6 @@
     "paths": {
       "~/*": ["./src/*"]
     },
-    "jsx": "react-jsx",
     "baseUrl": "."
   }
 }

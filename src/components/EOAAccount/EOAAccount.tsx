@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react'
+import React, { useMemo, useState } from 'react'
 import { ENSMark, UNSMark } from '../icons'
 import { Column, Row } from '../Layout'
 import { Address, Avatar, LensGradientText, ResolvedName } from './EOAAccount.styles'

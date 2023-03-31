@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react'
+import React from 'react'
 import { Address } from '../EOAAccount/EOAAccount.styles'
 import { Column, Row } from '../Layout'
 import { Avatar, MetaInfoGroup, MetaInfoItem, Tag } from './ContractAccount.styles'

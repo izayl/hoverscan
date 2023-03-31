@@ -1,5 +1,6 @@
 import { CSS, styled } from '@stitches/react'
 import type { ComponentProps } from 'react'
+import React from 'react'
 
 export interface IconProps {
   fill?: string
