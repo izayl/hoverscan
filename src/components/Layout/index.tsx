@@ -116,3 +116,8 @@ export const Position: React.FC<React.PropsWithChildren<{
     </div>
   )
 }
+
+export const Avatar = styled('img', {
+  size: 48,
+  borderRadius: '50%',
+})

@@ -1,7 +1,8 @@
 import React, { useMemo, useState } from 'react'
 import { ENSMark, UNSMark } from '../icons'
-import { Column, Row } from '../Layout'
-import { Address, Avatar, LensGradientText, ResolvedName } from './EOAAccount.styles'
+import { Avatar, Column, Row } from '../Layout'
+import { IdentIcon } from '../IdentIcon'
+import { Address, LensGradientText, ResolvedName } from './EOAAccount.styles'
 
 type EOAAccountProps = {
   address?: string
@@ -35,12 +36,12 @@ const EOAAccount: React.FC<EOAAccountProps> = ({
   }, [selectedNameHandle])
   return (
     <Row gap align="center">
-      <Avatar src={avatar} alt="avatar" />
+      {avatar ? <Avatar src={avatar} alt="avatar" /> : <IdentIcon address={address} />}
       <Column gap justify="between">
         <Row gap>
-          <ResolvedName onClick={() => setSelectedNameHandle(NameHandle.ENS)}><ENSMark /> {ensName}</ResolvedName>
-          <ResolvedName onClick={() => setSelectedNameHandle(NameHandle.LENS)}>🌿 <LensGradientText>{lensName}</LensGradientText></ResolvedName>
-          <ResolvedName onClick={() => setSelectedNameHandle(NameHandle.UNS)}><UNSMark /> {unsName}</ResolvedName>
+          {ensName ? <ResolvedName onClick={() => setSelectedNameHandle(NameHandle.ENS)}><ENSMark /> {ensName}</ResolvedName> : null}
+          {lensName ? <ResolvedName onClick={() => setSelectedNameHandle(NameHandle.LENS)}>🌿 <LensGradientText>{lensName}</LensGradientText></ResolvedName> : null}
+          {unsName ? <ResolvedName onClick={() => setSelectedNameHandle(NameHandle.UNS)}><UNSMark /> {unsName}</ResolvedName> : null}
         </Row>
         <Address>
           {address}

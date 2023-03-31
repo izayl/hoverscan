@@ -1,10 +1,5 @@
 import { styled } from '~/stitches.config'
 
-export const Avatar = styled('img', {
-  size: 48,
-  borderRadius: '50%',
-})
-
 export const ResolvedName = styled('div', {
   borderRadius: 12,
   py: 3,
