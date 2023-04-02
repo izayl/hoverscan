@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/react'
 import { Contract as ContractAccount } from '../ContractAccount/ContractAccount.story'
 import { EOA as EOAAccount } from '../EOAAccount/EOAAccount.story'
 import { Synced, Syncing } from '../SyncStatus/SyncStatus.story'
-import { NetworkOverview } from '../NetworkOverview/NetworkOverview.story'
+import { ChainOverview } from '../ChainOverview/ChainOverview.story'
 import HoverCardComp from './HoverCard'
 
 const meta: Meta<typeof HoverCardComp> = {
@@ -25,7 +25,7 @@ export const Account: Story = {
       <HoverCardComp>
         {EOAAccount.render(null, null)}
         {Synced.render(null, null)}
-        {NetworkOverview.render(null, null)}
+        {ChainOverview.render(null, null)}
       </HoverCardComp>
     </>
   ),

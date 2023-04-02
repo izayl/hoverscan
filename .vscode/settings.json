@@ -11,7 +11,8 @@
     "plasmohq",
     "polygonscan",
     "snowtrace",
-    "viem"
+    "viem",
+    "wagmi"
   ],
   "typescript.tsdk": "node_modules/typescript/lib"
 }

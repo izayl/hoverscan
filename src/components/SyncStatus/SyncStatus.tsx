@@ -1,28 +1,28 @@
 import React, { useMemo } from 'react'
+import type { Chain } from 'viem'
 import { Row } from '../Layout'
 import { SyncButton } from './SyncStatus.styles'
-import type { Network } from '~/lib/constants/network'
 
 type SyncState = {
-  network: Network
+  chain: Chain
   synced: boolean
   hasResult: boolean
 }
 
 type SyncStatusProps = {
-  syncNetworks: Network[]
-  syncedNetworks: SyncState[]
+  syncChains: Chain[]
+  syncedChains: SyncState[]
   onSync?: () => void
 }
 
 const SyncStatus: React.FC<SyncStatusProps> = ({
-  syncNetworks,
-  syncedNetworks,
+  syncChains,
+  syncedChains,
   onSync,
 }) => {
-  const syncing = useMemo(() => syncedNetworks.length < syncNetworks.length, [syncNetworks, syncedNetworks])
-  const foundSynced = useMemo(() => syncedNetworks.filter((synced) => synced.hasResult), [syncedNetworks])
-  const label = syncing ? `Searching for ${syncNetworks.length} networks` : `found in ${foundSynced?.length} networks`
+  const syncing = useMemo(() => syncedChains.length < syncChains.length, [syncChains, syncedChains])
+  const foundSynced = useMemo(() => syncedChains.filter((synced) => synced.hasResult), [syncedChains])
+  const label = syncing ? `Searching for ${syncChains.length} networks` : `found in ${foundSynced?.length} networks`
 
   const onSyncButtonClick = () => {
     if (!syncing) {
@@ -33,7 +33,7 @@ const SyncStatus: React.FC<SyncStatusProps> = ({
   return (
     <Row align="center" justify="between">
       <span>{label}</span>
-      <SyncButton syncing={syncing} onClick={onSyncButtonClick}>{ syncing ? `Syncing(${foundSynced?.length ?? 0}/${syncNetworks.length})` : 'Synced' }</SyncButton>
+      <SyncButton syncing={syncing} onClick={onSyncButtonClick}>{ syncing ? `Syncing(${foundSynced?.length ?? 0}/${syncChains.length})` : 'Synced' }</SyncButton>
     </Row>
   )
 }

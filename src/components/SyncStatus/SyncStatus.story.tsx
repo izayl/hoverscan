@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/react'
 import { useState } from 'react'
 import { Card } from '../Layout'
 import SyncStatusComp from './SyncStatus'
-import Networks from '~/lib/constants/network'
+import ALL_SUPPORTED_CHAINS from '~/chain/all'
 
 const meta: Meta<typeof SyncStatusComp> = {
   title: 'UI/SyncStatus',
@@ -18,8 +18,8 @@ export const Syncing: Story = {
     return (
       <Card>
         <SyncStatusComp
-          syncNetworks={Networks}
-          syncedNetworks={[]}
+          syncChains={ALL_SUPPORTED_CHAINS}
+          syncedChains={[]}
         />
       </Card>
     )
@@ -27,8 +27,8 @@ export const Syncing: Story = {
 }
 export const Synced: Story = {
   render: () => {
-    const allSynced = Networks.map((network) => ({
-      network,
+    const allSynced = ALL_SUPPORTED_CHAINS.map((chain) => ({
+      chain,
       synced: true,
       hasResult: true,
     }))
@@ -36,8 +36,8 @@ export const Synced: Story = {
     return (
       <Card>
         <SyncStatusComp
-          syncNetworks={Networks}
-          syncedNetworks={syncedNetworks}
+          syncChains={ALL_SUPPORTED_CHAINS}
+          syncedChains={syncedNetworks}
           onSync={() => {
             setSyncedNetworks([])
             setTimeout(() => {

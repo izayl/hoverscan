@@ -32,7 +32,7 @@ const EOAAccount: React.FC<EOAAccountProps> = ({
     if (selectedNameHandle === NameHandle.UNS) return unsAvatar
     if (selectedNameHandle === NameHandle.LENS) return lensAvatar
 
-    return 'http://place-hold.it/200x200/0033CC/FFFFFF/gif&text=null.gif'
+    return null
   }, [selectedNameHandle])
   return (
     <Row gap align="center">

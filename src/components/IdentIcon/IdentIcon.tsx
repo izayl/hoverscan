@@ -15,7 +15,7 @@ export const IdentIcon: React.FC<IdentIconProps> = ({
 
   useEffect(() => {
     const canvas = canvasRef.current
-    renderIcon({ seed: address.toLowerCase() }, canvas)
+    renderIcon({ seed: address?.toLowerCase() }, canvas)
     const updatedDataUrl = canvas.toDataURL()
 
     if (updatedDataUrl !== dataUrl) {
