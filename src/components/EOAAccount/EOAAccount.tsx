@@ -1,11 +1,12 @@
 import React, { useMemo, useState } from 'react'
+import type { Address } from 'viem'
 import { ENSMark, UNSMark } from '../icons'
 import { Avatar, Column, Row } from '../Layout'
 import { IdentIcon } from '../IdentIcon'
-import { Address, LensGradientText, ResolvedName } from './EOAAccount.styles'
+import { AddressText, LensGradientText, ResolvedName } from './EOAAccount.styles'
 
 type EOAAccountProps = {
-  address?: string
+  address?: Address
 
   ensName?: string
   ensAvatar?: string
@@ -43,9 +44,9 @@ export const EOAAccount: React.FC<EOAAccountProps> = ({
           {lensName ? <ResolvedName onClick={() => setSelectedNameHandle(NameHandle.LENS)}>🌿 <LensGradientText>{lensName}</LensGradientText></ResolvedName> : null}
           {unsName ? <ResolvedName onClick={() => setSelectedNameHandle(NameHandle.UNS)}><UNSMark /> {unsName}</ResolvedName> : null}
         </Row>
-        <Address>
+        <AddressText>
           {address}
-        </Address>
+        </AddressText>
       </Column>
     </Row>
   )

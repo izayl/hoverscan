@@ -1,5 +1,5 @@
 import type { PlasmoCSConfig, PlasmoGetStyle, PlasmoRender } from 'plasmo'
-import { getAddress, isAddress } from 'viem'
+import { Address, getAddress, isAddress } from 'viem'
 import { Provider, useAtom } from 'jotai'
 import React, { useEffect, useMemo } from 'react'
 import { createRoot } from 'react-dom/client'
@@ -37,7 +37,7 @@ export const getRootContainer = () => {
 }
 
 const HoverScanExtension: React.FC<{
-  address: string
+  address: Address
   onClose?: () => void
   position?: { x: number; y: number }
 }> = ({

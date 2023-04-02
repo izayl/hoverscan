@@ -1,11 +1,12 @@
 import React from 'react'
-import { Address } from '../EOAAccount/EOAAccount.styles'
+import type { Address } from 'viem'
+import { AddressText } from '../EOAAccount/EOAAccount.styles'
 import { Column, Row } from '../Layout'
 import { IdentIcon } from '../IdentIcon'
 import { MetaInfoGroup, MetaInfoItem, Tag } from './ContractAccount.styles'
 
 type ContractAccountProps = {
-  address?: string
+  address?: Address
 }
 
 export const ContractAccount: React.FC<ContractAccountProps> = ({
@@ -22,9 +23,9 @@ export const ContractAccount: React.FC<ContractAccountProps> = ({
             {contractName}
             <Tag>Contract</Tag>
           </Row>
-          <Address>
+          <AddressText>
             {address}
-          </Address>
+          </AddressText>
         </Column>
       </Row>
       <MetaInfoGroup>

@@ -1,11 +1,11 @@
 import React from 'react'
-import type { Chain } from 'viem'
+import type { Address, Chain } from 'viem'
 import { Column } from '../Layout'
 import { IndicatorRight, NetworkImage, NetworkName, OverviewInfo, StyledOverview } from './ChainOverview.styles'
 import CHAIN_THEMES from '~/chain/theme'
 
 type ChainOverview = {
-  address: string
+  address: Address
   chain: Chain
   nativeBalance: string
   txn: number

@@ -1,9 +1,10 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { renderIcon } from '@download/blockies'
+import type { Address } from 'viem'
 import { Avatar } from '../Layout'
 
 type IdentIconProps = {
-  address: string
+  address: Address
   size?: number
 }
 
