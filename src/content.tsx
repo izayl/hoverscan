@@ -8,6 +8,7 @@ import { getCssText } from './stitches.config'
 import { addressAtom } from './state/address'
 import ALL_SUPPORTED_CHAINS from './chain/all'
 import { ChainOverview, EOAAccount, HoverCard, Position, SyncStatus } from './components'
+import { mainnet } from '~/chain'
 
 console.log(`
  +-++-++-++-++-++-++-++-++-+
@@ -49,9 +50,9 @@ const HoverScanExtension: React.FC<{
     <Position x={position.x} y={position.y} offset={15}>
       <HoverCard onClose={onClose}>
         <EOAAccount ensName={ensName} address={address} />
-        <SyncStatus syncChains={ALL_SUPPORTED_CHAINS} syncedChains={[]} />
+        <SyncStatus syncChains={[mainnet]} syncedChains={[]} />
         {
-          ALL_SUPPORTED_CHAINS.map((chain) => (
+          [mainnet].map((chain) => (
             <ChainOverview
               key={chain.id}
               address={address}
