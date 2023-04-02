@@ -1,1 +1,1 @@
-export { default } from './ContractAccount'
+export * from './ContractAccount'

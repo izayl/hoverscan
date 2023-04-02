@@ -2,22 +2,22 @@
 import type { Meta, StoryObj } from '@storybook/react'
 import { useState } from 'react'
 import { Card } from '../Layout'
-import SyncStatusComp from './SyncStatus'
+import { SyncStatus as Component } from './'
 import ALL_SUPPORTED_CHAINS from '~/chain/all'
 
-const meta: Meta<typeof SyncStatusComp> = {
+const meta: Meta<typeof Component> = {
   title: 'UI/SyncStatus',
-  component: SyncStatusComp,
+  component: Component,
 }
 
 export default meta
-type Story = StoryObj<typeof SyncStatusComp>
+type Story = StoryObj<typeof Component>
 
 export const Syncing: Story = {
   render: () => {
     return (
       <Card>
-        <SyncStatusComp
+        <Component
           syncChains={ALL_SUPPORTED_CHAINS}
           syncedChains={[]}
         />
@@ -35,7 +35,7 @@ export const Synced: Story = {
     const [syncedNetworks, setSyncedNetworks] = useState(allSynced)
     return (
       <Card>
-        <SyncStatusComp
+        <Component
           syncChains={ALL_SUPPORTED_CHAINS}
           syncedChains={syncedNetworks}
           onSync={() => {

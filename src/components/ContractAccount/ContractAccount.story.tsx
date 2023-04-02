@@ -1,18 +1,18 @@
 
 import type { Meta, StoryObj } from '@storybook/react'
-import ContractComp from './ContractAccount'
+import { ContractAccount as Component } from './'
 
-const meta: Meta<typeof ContractComp> = {
+const meta: Meta<typeof Component> = {
   title: 'UI/Account',
-  component: ContractComp,
+  component: Component,
 }
 
 export default meta
-type Story = StoryObj<typeof ContractComp>
+type Story = StoryObj<typeof Component>
 
 export const Contract: Story = {
   render: () => (
-    <ContractComp
+    <Component
       address="0x4200000000000000000000000000000000000006"
     />
   ),

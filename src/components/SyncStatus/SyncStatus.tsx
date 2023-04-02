@@ -15,7 +15,7 @@ type SyncStatusProps = {
   onSync?: () => void
 }
 
-const SyncStatus: React.FC<SyncStatusProps> = ({
+export const SyncStatus: React.FC<SyncStatusProps> = ({
   syncChains,
   syncedChains,
   onSync,
@@ -37,5 +37,3 @@ const SyncStatus: React.FC<SyncStatusProps> = ({
     </Row>
   )
 }
-
-export default SyncStatus

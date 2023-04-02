@@ -1,6 +1,6 @@
 
 import type { Meta, StoryObj } from '@storybook/react'
-import Account from './EOAAccount'
+import { EOAAccount as Account } from './'
 
 const meta: Meta<typeof Account> = {
   title: 'UI/Account',

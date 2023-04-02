@@ -1,1 +1,1 @@
-export { default } from './ChainOverview'
+export * from './ChainOverview'

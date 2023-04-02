@@ -8,7 +8,7 @@ type ContractAccountProps = {
   address?: string
 }
 
-const ContractAccount: React.FC<ContractAccountProps> = ({
+export const ContractAccount: React.FC<ContractAccountProps> = ({
   address,
 }) => {
   const contractName = 'Uniswap V2 Factory'
@@ -35,5 +35,3 @@ const ContractAccount: React.FC<ContractAccountProps> = ({
     </Column>
   )
 }
-
-export default ContractAccount

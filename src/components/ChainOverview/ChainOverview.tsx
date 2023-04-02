@@ -11,7 +11,7 @@ type ChainOverview = {
   txn: number
 }
 
-const ChainOverview: React.FC<React.PropsWithChildren<ChainOverview>> = ({
+export const ChainOverview: React.FC<React.PropsWithChildren<ChainOverview>> = ({
   address,
   chain,
   nativeBalance,
@@ -35,5 +35,3 @@ const ChainOverview: React.FC<React.PropsWithChildren<ChainOverview>> = ({
     </StyledOverview>
   )
 }
-
-export default ChainOverview

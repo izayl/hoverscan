@@ -1,10 +1,13 @@
-import type { PlasmoCSConfig, PlasmoGetStyle, PlasmoRender, PlasmoWatchOverlayAnchor } from 'plasmo'
-import React, { useMemo } from 'react'
+import type { PlasmoCSConfig, PlasmoGetStyle, PlasmoRender } from 'plasmo'
+import { getAddress, isAddress } from 'viem'
+import { Provider, useAtom } from 'jotai'
+import React, { useEffect, useMemo } from 'react'
 import { createRoot } from 'react-dom/client'
-import { useMouseSelection } from './hooks'
-import HoverCard from './components/HoverCard/HoverCard'
+import { useMouseSelection, useWeb3Domain } from './hooks'
 import { getCssText } from './stitches.config'
-import { Position } from './components/Layout'
+import { addressAtom } from './state/address'
+import ALL_SUPPORTED_CHAINS from './chain/all'
+import { ChainOverview, EOAAccount, HoverCard, Position, SyncStatus } from './components'
 
 console.log(`
  +-++-++-++-++-++-++-++-++-+
@@ -32,27 +35,70 @@ export const getRootContainer = () => {
   return root
 }
 
-const Content = () => {
-  const { selectPosition, selection, clearSelection } = useMouseSelection()
-  const isOpen = useMemo(() => Boolean(selection?.toString()), [selection])
+const HoverScanExtension: React.FC<{
+  address: string
+  onClose?: () => void
+  position?: { x: number; y: number }
+}> = ({
+  address,
+  onClose,
+  position = { x: 0, y: 0 },
+}) => {
+  const { ensName } = useWeb3Domain()
+  return (
+    <Position x={position.x} y={position.y} offset={15}>
+      <HoverCard onClose={onClose}>
+        <EOAAccount ensName={ensName} address={address} />
+        <SyncStatus syncChains={ALL_SUPPORTED_CHAINS} syncedChains={[]} />
+        {
+          ALL_SUPPORTED_CHAINS.map((chain) => (
+            <ChainOverview
+              key={chain.id}
+              address={address}
+              chain={chain}
+              nativeBalance="0"
+              txn={0}
+            />
+          ))
+        }
+      </HoverCard>
+    </Position>
+  )
+}
 
-  if (!isOpen) {
+const Content = () => {
+  const { selection, clearSelection, selectPosition } = useMouseSelection()
+  const isOpen = useMemo(() => Boolean(selection?.toString()), [selection])
+  const maybeAddress = useMemo(() => selection?.toString()?.trim(), [selection])
+  // @todo support regex parse or dom parse for better recognition
+  const isValidAddress = useMemo(() => isAddress(maybeAddress), [maybeAddress])
+  const [address, setAddress] = useAtom(addressAtom)
+
+  useEffect(() => {
+    if (isAddress(maybeAddress)) {
+      setAddress(getAddress(maybeAddress))
+    } else {
+      setAddress(null)
+    }
+  }, [maybeAddress])
+
+  if (!isOpen || !isValidAddress) {
     return null
   }
 
   return (
-    <Position x={selectPosition.x} y={selectPosition.y} offset={15}>
-      <HoverCard onClose={clearSelection}>
-        <div>{selection?.toString()}</div>
-      </HoverCard>
-    </Position>
+    <HoverScanExtension
+      address={address}
+      position={selectPosition}
+      onClose={clearSelection}
+    />
   )
 }
 
 export const render: PlasmoRender = async ({ createRootContainer }) => {
   const rootContainer = await createRootContainer(null)
   const root = createRoot(rootContainer)
-  root.render(<Content />)
+  root.render(<Provider><Content /></Provider>)
 }
 
 export default Content

@@ -23,7 +23,7 @@ enum NameHandle {
   LENS = 'Lens',
 }
 
-const EOAAccount: React.FC<EOAAccountProps> = ({
+export const EOAAccount: React.FC<EOAAccountProps> = ({
   address, ensName, ensAvatar, unsName, unsAvatar, lensName, lensAvatar,
 }) => {
   const [selectedNameHandle, setSelectedNameHandle] = useState<NameHandle | null>(null)
@@ -50,5 +50,3 @@ const EOAAccount: React.FC<EOAAccountProps> = ({
     </Row>
   )
 }
-
-export default EOAAccount

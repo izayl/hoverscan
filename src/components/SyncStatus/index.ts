@@ -1,1 +1,1 @@
-export { default } from './SyncStatus'
+export * from './SyncStatus'

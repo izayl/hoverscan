@@ -1,9 +1,8 @@
 import React from 'react'
 import { Bookmark, Close, Icon, Pin, Sun } from '../icons'
-import { Card, Column, Row, Text } from '../Layout'
+import { Card, Row, Text } from '../Layout'
 
 type HoverCardProps = {
-  address?: string
   onClose?: () => void
 }
 
@@ -26,8 +25,7 @@ const Header: React.FC<{
   )
 }
 
-const HoverCard: React.FC<React.PropsWithChildren<HoverCardProps>> = ({
-  address = '',
+export const HoverCard: React.FC<React.PropsWithChildren<HoverCardProps>> = ({
   children,
   onClose,
 }) => {
@@ -38,5 +36,3 @@ const HoverCard: React.FC<React.PropsWithChildren<HoverCardProps>> = ({
     </Card>
   )
 }
-
-export default HoverCard
