@@ -23,6 +23,7 @@ export const LensGradientText = styled('span', {
 export const AddressText = styled('div', {
   overflowWrap: 'anywhere',
   fontSize: 12,
+  fontWeight: 500,
   lineHeight: 1.4,
   color: '#444',
 })

@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 
 const ZERO_POSITION = { x: 0, y: 0 }
 
@@ -8,7 +8,7 @@ export const useMouseSelection = () => {
 
   const onMouseUp = (e: MouseEvent) => {
     const selection = window.getSelection()
-    if (selection && selection.toString()) {
+    if (selection?.toString()) {
       setSelection(selection)
 
       const domRect = selection.focusNode.parentElement.getBoundingClientRect()

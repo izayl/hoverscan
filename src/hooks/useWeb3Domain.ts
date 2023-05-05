@@ -13,7 +13,6 @@ export const useWeb3Domain = () => {
       mainnetClient
         .getEnsName({ address: address as `0x${string}` })
         .then(res => {
-          console.log({ res })
           return res
         })
         .then(setEnsName)

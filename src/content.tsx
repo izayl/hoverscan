@@ -1,13 +1,21 @@
 import type { PlasmoCSConfig, PlasmoGetStyle, PlasmoRender } from 'plasmo'
 import { Address, getAddress, isAddress } from 'viem'
-import { Provider, useAtom } from 'jotai'
-import React, { useEffect, useMemo } from 'react'
+import { Provider, useAtom, useAtomValue } from 'jotai'
+import React, { Suspense, useEffect, useMemo } from 'react'
 import { createRoot } from 'react-dom/client'
 import { useIsContract, useMouseSelection, useWeb3Domain } from './hooks'
 import { getCssText } from './stitches.config'
 import { addressAtom } from './state/address'
-import ALL_SUPPORTED_CHAINS from './chain/all'
-import { ChainOverview, ContractAccount, EOAAccount, HoverCard, Position, SyncStatus } from './components'
+import { ALL_SUPPORTED_CHAINS } from './chain'
+import {
+  ChainOverview,
+  ContractAccount,
+  EOAAccount,
+  HoverCard,
+  Position,
+  SyncStatus,
+} from './components'
+import { eoaSyncAtom } from './state/sync'
 import { mainnet, mainnetClient } from '~/chain'
 
 console.log(`
@@ -36,34 +44,49 @@ export const getRootContainer = () => {
   return root
 }
 
+const EoaOverview = () => {
+  const eoaState = useAtomValue(eoaSyncAtom)
+  return (
+    <div>
+      EoaOverview
+      <pre>
+        {JSON.stringify(eoaState, null, 2)}
+      </pre>
+    </div>
+  )
+}
+
 const HoverScanExtension: React.FC<{
   address: Address
   onClose?: () => void
   position?: { x: number; y: number }
-}> = ({
-  address,
-  onClose,
-  position = { x: 0, y: 0 },
-}) => {
+}> = ({ address, onClose, position = { x: 0, y: 0 } }) => {
   const { ensName } = useWeb3Domain()
   const isContract = useIsContract(mainnetClient, address)
 
   return (
     <Position x={position.x} y={position.y} offset={15}>
       <HoverCard onClose={onClose}>
-        {isContract ? <ContractAccount address={address} /> : <EOAAccount ensName={ensName} address={address} />}
+        {isContract
+          ? (
+            <ContractAccount address={address} />
+          )
+          : (
+            <EOAAccount ensName={ensName} address={address} />
+          )}
         <SyncStatus syncChains={[mainnet]} syncedChains={[]} />
-        {
-          [mainnet].map((chain) => (
-            <ChainOverview
-              key={chain.id}
-              address={address}
-              chain={chain}
-              nativeBalance="0"
-              txn={0}
-            />
-          ))
-        }
+        {[mainnet].map(chain => (
+          <ChainOverview
+            key={chain.id}
+            address={address}
+            chain={chain}
+            nativeBalance="0"
+            txn={0}
+          />
+        ))}
+        <Suspense fallback="loading...">
+          <EoaOverview />
+        </Suspense>
       </HoverCard>
     </Position>
   )
@@ -78,6 +101,7 @@ const Content = () => {
   const [address, setAddress] = useAtom(addressAtom)
 
   useEffect(() => {
+    console.log('maybeAddress', maybeAddress)
     if (isAddress(maybeAddress)) {
       setAddress(getAddress(maybeAddress))
     } else {
@@ -101,7 +125,11 @@ const Content = () => {
 export const render: PlasmoRender = async ({ createRootContainer }) => {
   const rootContainer = await createRootContainer(null)
   const root = createRoot(rootContainer)
-  root.render(<Provider><Content /></Provider>)
+  root.render(
+    <Provider>
+      <Content />
+    </Provider>,
+  )
 }
 
 export default Content
