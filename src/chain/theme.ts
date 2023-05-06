@@ -62,7 +62,7 @@ const CHAIN_THEMES: Record<chainId, ChainTheme> = {
   },
   [polygon.id]: {
     chain: polygon,
-    iconUrl: 'https://www.ankr.com/rpc/static/media/polygon.859b6d49.svg',
+    iconUrl: 'https://www.ankr.com/rpc/static/media/polygon.a5e91b5d.svg',
     background: 'rgba(121, 80, 221, 0.2)',
   },
 }

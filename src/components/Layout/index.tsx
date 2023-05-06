@@ -24,6 +24,9 @@ export const Row = styled('div', {
       end: {
         alignItems: 'flex-end',
       },
+      baseline: {
+        alignItems: 'baseline',
+      },
     },
     gap: {
       true: {
@@ -60,6 +63,9 @@ export const Column = styled('div', {
       end: {
         alignItems: 'flex-end',
       },
+      baseline: {
+        alignItems: 'baseline',
+      }
     },
     gap: {
       true: {
