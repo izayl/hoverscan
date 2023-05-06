@@ -1,8 +1,9 @@
-import { useAtomValue } from 'jotai'
+import { useAtom, useAtomValue, useSetAtom } from 'jotai'
 import React, { useMemo } from 'react'
 import { Row } from '../Layout'
 import { SyncButton } from './SyncStatus.styles'
-import { eoaSyncAtom, eoaSyncStatesAtom, loadableEOASyncAtom, syncChainsAtom, syncedEOAChains, syncedExistEOAStatesAtom } from '~/state/sync'
+import { eoaSyncTimeAtom, syncChainsAtom, syncedEOAChains, syncedExistEOAStatesAtom } from '~/state/sync'
+import { addressAtom } from '~/state/address'
 
 type SyncStatusProps = {
   all: number
@@ -30,7 +31,7 @@ export const SyncStatus: React.FC<SyncStatusProps> = ({
     <Row align="center" justify="between">
       <span>{label}</span>
       <SyncButton syncing={syncing} onClick={onSyncButtonClick}>
-        {syncing ? `Syncing(${synced ?? 0}/${all})` : 'Synced'}
+        {syncing ? `Syncing(${synced ?? 0}/${all})` : 'Synced ↺'}
       </SyncButton>
     </Row>
   )
@@ -40,8 +41,12 @@ export const EOASyncStatus = () => {
   const syncedChains = useAtomValue(syncedEOAChains)
   const allChains = useAtomValue(syncChainsAtom)
   const existState = useAtomValue(syncedExistEOAStatesAtom)
+  const setSyncTime = useSetAtom(eoaSyncTimeAtom)
 
+  const onRefresh = () => {
+    setSyncTime(Date.now())
+  }
   return (
-    <SyncStatus all={allChains.length} synced={syncedChains.length} existed={existState.length} />
+    <SyncStatus all={allChains.length} synced={syncedChains.length} existed={existState.length} onSync={onRefresh} />
   )
 }

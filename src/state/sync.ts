@@ -24,6 +24,7 @@ export type EOASyncState = {
   chain: Chain
 }
 
+export const eoaSyncTimeAtom = atom<number>(0)
 export const eoaSyncStatesAtom = atom<Record<Chain['id'], EOASyncState>>({})
 export const syncedEOAChains = atom(get => {
   const states = get(eoaSyncStatesAtom)
@@ -39,6 +40,7 @@ export const useEOASync = () => {
   const clients = useAtomValue(syncClientsAtom)
   const [inSync, setInSync] = useAtom(inSyncAtom)
   const setStates = useSetAtom(eoaSyncStatesAtom)
+  const [syncTime, setSyncTime] = useAtom(eoaSyncTimeAtom)
 
   useEffect(() => {
     if (inSync) return
@@ -46,6 +48,10 @@ export const useEOASync = () => {
       setStates({})
       return
     }
+    if (!syncTime) {
+      setSyncTime(Date.now())
+    }
+    setStates({})
     setInSync(true)
     Promise.all(clients.map(async client => {
       const [txn, balance] = await Promise.all([
@@ -64,5 +70,5 @@ export const useEOASync = () => {
     })).then(() => {
       setInSync(false)
     })
-  }, [address, clients, setStates])
+  }, [address, clients, setStates, syncTime])
 }
