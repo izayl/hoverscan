@@ -4,9 +4,11 @@ import { AddressText } from '../EOAAccount/EOAAccount.styles'
 import { Column, Row } from '../Layout'
 import { IdentIcon } from '../IdentIcon'
 import { ContractName, MetaInfoGroup, MetaInfoItem, Tag } from './ContractAccount.styles'
-import { mainnet } from '~/chain'
+import { mainnet, mainnetClient } from '~/chain'
 import type { ContractInfo } from '~/chain/explorer'
 import { getContractInfo } from '~/chain/explorer'
+import { isNFTContract } from '~/utils/isNFTContract'
+import { type ContractType, useContractType } from '~/hooks'
 
 type ContractAccountProps = {
   address?: Address
@@ -19,6 +21,10 @@ export const ContractAccount: React.FC<ContractAccountProps> = ({
     name: '...',
     verified: false,
   })
+  const [contractType, setContractType] = useState<ContractType>('Unknown Type')
+  const getContractType = useContractType()
+
+  console.log({ contractType })
 
   useEffect(() => {
     try {
@@ -26,10 +32,11 @@ export const ContractAccount: React.FC<ContractAccountProps> = ({
         console.log({ info })
         setContractInfo(info)
       })
+      getContractType(address, mainnetClient).then(setContractType)
     } catch (error) {
       console.error(error)
     }
-  }, [address])
+  }, [address, getContractType])
 
   return (
     <Column gap>
@@ -47,7 +54,7 @@ export const ContractAccount: React.FC<ContractAccountProps> = ({
         </Column>
       </Row>
       <MetaInfoGroup>
-        <MetaInfoItem>ERC20</MetaInfoItem>
+        <MetaInfoItem>{contractType}</MetaInfoItem>
         <MetaInfoItem>{ contractInfo.verified ? 'Verified' : 'Not Verified' }</MetaInfoItem>
         <MetaInfoItem>Open Explorer</MetaInfoItem>
       </MetaInfoGroup>
