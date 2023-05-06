@@ -3,7 +3,7 @@
   "displayName": "Hoverscan",
   "version": "0.0.1",
   "packageManager": "pnpm@8.3.1",
-  "description": "A Browser extension show address/contract info and balance.",
+  "description": "A Browser extension show and tag address/contract cross-chain.",
   "author": "izayl",
   "homepage": "https://github.com/izayl/hoverscan",
   "repository": {
