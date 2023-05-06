@@ -1,12 +1,11 @@
 import type { PlasmoCSConfig, PlasmoGetStyle, PlasmoRender } from 'plasmo'
 import { Address, getAddress, isAddress } from 'viem'
 import { Provider, useAtom, useAtomValue } from 'jotai'
-import React, { Suspense, useEffect, useMemo } from 'react'
+import React, { forwardRef, useEffect, useMemo, useRef, useState } from 'react'
 import { createRoot } from 'react-dom/client'
 import { useIsContract, useMouseSelection, useWeb3Domain } from './hooks'
 import { getCssText } from './stitches.config'
 import { addressAtom } from './state/address'
-import { ALL_SUPPORTED_CHAINS } from './chain'
 import {
   ChainOverview,
   Container,
@@ -15,10 +14,10 @@ import {
   EOASyncStatus,
   HoverCard,
   Position,
-  SyncStatus,
 } from './components'
-import { eoaSyncAtom, eoaSyncStatesAtom, syncChainsAtom, syncedExistEOAStatesAtom, useEOASync } from './state/sync'
-import { mainnet, mainnetClient } from '~/chain'
+import { syncedExistEOAStatesAtom, useEOASync } from './state/sync'
+import { useClickOutside } from './hooks/useClickOutside'
+import { mainnetClient } from '~/chain'
 
 console.log(`
  +-++-++-++-++-++-++-++-++-+
@@ -67,18 +66,21 @@ const EoaOverview = () => {
   )
 }
 
-const HoverScanExtension: React.FC<{
+type HoverScanExtensionProps = {
   address: Address
-  onClose?: () => void
+  onClose?:() => void
   position?: { x: number; y: number }
-}> = ({ address, onClose, position = { x: 0, y: 0 } }) => {
+}
+
+const HoverScanExtension = forwardRef<HTMLDivElement, HoverScanExtensionProps>((props, ref) => {
+  const { address, onClose, position = { x: 0, y: 0 } } = props
   const { ensName } = useWeb3Domain()
   const isContract = useIsContract(mainnetClient, address)
   useEOASync()
 
   return (
     <Position x={position.x} y={position.y} offset={15}>
-      <HoverCard onClose={onClose}>
+      <HoverCard onClose={onClose} ref={ref}>
         {isContract
           ? (
             <ContractAccount address={address} />
@@ -93,34 +95,52 @@ const HoverScanExtension: React.FC<{
       </HoverCard>
     </Position>
   )
-}
+})
+HoverScanExtension.displayName = 'HoverScanExtension'
 
 const Content = () => {
-  const { selection, clearSelection, selectPosition } = useMouseSelection()
-  const isOpen = useMemo(() => Boolean(selection?.toString()), [selection])
+  const ref = useRef<HTMLDivElement>(null)
+  const { selection, clearSelection, selectPosition } = useMouseSelection(ref)
+  const [isOpen, setIsOpen] = useState(false)
   const maybeAddress = useMemo(() => selection?.toString()?.trim(), [selection])
   // @todo support regex parse or dom parse for better recognition
   const isValidAddress = useMemo(() => isAddress(maybeAddress), [maybeAddress])
   const [address, setAddress] = useAtom(addressAtom)
 
   useEffect(() => {
+    if (isValidAddress) {
+      setIsOpen(true)
+    }
+  }, [isValidAddress])
+
+  useClickOutside(ref, () => {
+    if (isOpen) {
+      onClose()
+    }
+  })
+
+  const onClose = () => {
+    setIsOpen(false)
+    clearSelection()
+  }
+
+  useEffect(() => {
     console.log('maybeAddress', maybeAddress)
     if (isAddress(maybeAddress)) {
       setAddress(getAddress(maybeAddress))
-    } else {
-      setAddress(null)
     }
   }, [maybeAddress])
 
-  if (!isOpen || !isValidAddress) {
+  if (!isOpen) {
     return null
   }
 
   return (
     <HoverScanExtension
+      ref={ref}
       address={address}
       position={selectPosition}
-      onClose={clearSelection}
+      onClose={onClose}
     />
   )
 }

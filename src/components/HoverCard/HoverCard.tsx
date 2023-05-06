@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { forwardRef } from 'react'
 import { Bookmark, Close, Icon, Pin, Sun } from '../icons'
 import { Card, Row, Text } from '../Layout'
 
@@ -25,14 +25,16 @@ const Header: React.FC<{
   )
 }
 
-export const HoverCard: React.FC<React.PropsWithChildren<HoverCardProps>> = ({
+export const HoverCard = forwardRef<HTMLDivElement, React.PropsWithChildren<HoverCardProps>>(({
   children,
   onClose,
-}) => {
+}, ref) => {
   return (
-    <Card>
+    <Card ref={ref}>
       <Header onClose={onClose} />
       {children}
     </Card>
   )
-}
+})
+
+HoverCard.displayName = 'HoverCard'

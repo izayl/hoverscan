@@ -1,4 +1,4 @@
-import { atom, useAtomValue, useSetAtom } from 'jotai'
+import { atom, useAtom, useAtomValue, useSetAtom } from 'jotai'
 import { useEffect } from 'react'
 import { Chain, PublicClient, createPublicClient, http } from 'viem'
 import { addressAtom } from './address'
@@ -37,10 +37,11 @@ export const syncedExistEOAStatesAtom = atom(get => {
 export const useEOASync = () => {
   const address = useAtomValue(addressAtom)
   const clients = useAtomValue(syncClientsAtom)
-  const setInSync = useSetAtom(inSyncAtom)
+  const [inSync, setInSync] = useAtom(inSyncAtom)
   const setStates = useSetAtom(eoaSyncStatesAtom)
 
   useEffect(() => {
+    if (inSync) return
     if (!address) {
       setStates({})
       return
@@ -51,7 +52,7 @@ export const useEOASync = () => {
         client.getTransactionCount({ address }),
         client.getBalance({ address }),
       ])
-      console.log('sync', client.chain.id, txn, balance)
+
       setStates(states => ({
         ...states,
         [client.chain.id]: {
