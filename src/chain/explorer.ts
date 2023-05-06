@@ -122,7 +122,6 @@ export const getContractInfo = async (chainId: number, address: Address): Promis
   //   message: "NOTOK",
   //   result: "Max rate limit reached, please use API Key for higher rate limit"
   // }
-  console.log('result', result[0]?.ContractName)
   if (status !== '1') {
     throw new Error('reach rate limit')
   }

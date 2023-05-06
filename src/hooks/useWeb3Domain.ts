@@ -6,7 +6,6 @@ import { addressAtom } from '~/state/address'
 export const useWeb3Domain = () => {
   const address = useAtomValue(addressAtom)
   const [ensName, setEnsName] = useState<string | null>(null)
-  console.log({ address })
 
   useEffect(() => {
     if (address) {

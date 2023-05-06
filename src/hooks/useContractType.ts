@@ -19,7 +19,7 @@ export const useContractType = () => {
         isNFTContract(address, client),
         isERC20Contract(address, client),
       ])
-      console.log({ isERC721, isERC1155, isERC20 })
+
       if (isERC1155) return 'ERC1155'
       if (isERC721) return 'ERC721'
       if (isERC20) return 'ERC20'

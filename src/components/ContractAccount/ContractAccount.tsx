@@ -24,14 +24,9 @@ export const ContractAccount: React.FC<ContractAccountProps> = ({
   const [contractType, setContractType] = useState<ContractType>('Unknown Type')
   const getContractType = useContractType()
 
-  console.log({ contractType })
-
   useEffect(() => {
     try {
-      getContractInfo(mainnet.id, address).then((info) => {
-        console.log({ info })
-        setContractInfo(info)
-      })
+      getContractInfo(mainnet.id, address).then(setContractInfo)
       getContractType(address, mainnetClient).then(setContractType)
     } catch (error) {
       console.error(error)
