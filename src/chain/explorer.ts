@@ -96,7 +96,12 @@ export type ContractGetSourceCodeResponse = {
     SwarmSource: string
   }>
 }
-export const getContractName = async (api: BlockScanApi, address: Address): Promise<string> => {
+
+export type ContractInfo = {
+  name: string
+  verified: boolean
+}
+export const getContractInfo = async (api: BlockScanApi, address: Address): Promise<ContractInfo> => {
   const { result, status } = await wretch(api.endpoint)
     .addon(QueryStringAddon)
     .query({
@@ -117,5 +122,8 @@ export const getContractName = async (api: BlockScanApi, address: Address): Prom
     throw new Error('reach rate limit')
   }
 
-  return result?.[0]?.ContractName ?? 'Unknown'
+  return {
+    name: result[0]?.ContractName ?? 'Unknown',
+    verified: result[0]?.SourceCode !== '',
+  }
 }
