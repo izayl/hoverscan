@@ -3,7 +3,7 @@ import { Chain, PublicClient, createPublicClient, http } from 'viem'
 import { addressAtom } from './address'
 import { ALL_SUPPORTED_CHAINS } from '~/chain'
 import { getTxn } from '~/features'
-import type { FeatureResolver } from '~/features/config'
+import { getNativeBalance } from '~/features/getNativeBalance'
 
 const syncChains = atom<Chain[]>(ALL_SUPPORTED_CHAINS)
 
@@ -17,9 +17,9 @@ const syncClients = atom<PublicClient[]>(get => {
   )
 })
 
-export const eoaFeaturesAtom = atom<FeatureResolver[]>([
+export const eoaFeaturesAtom = atom([
   getTxn,
-  getTxn,
+  getNativeBalance,
 ])
 
 export const eoaSyncAtom = atom(async (get) => {
@@ -35,7 +35,7 @@ export const eoaSyncAtom = atom(async (get) => {
     }])
   }
 
-  const resolveClients = (clients: PublicClient[], resolvers: (client: PublicClient) => Promise<Record<string, unknown>>) => {
+  const resolveClients = (clients: PublicClient[], resolvers: (client: PublicClient) => Promise<{[k: string]: any}>) => {
     return clients.map(resolvers)
   }
   const resolveFeatures = async (client: PublicClient) => {

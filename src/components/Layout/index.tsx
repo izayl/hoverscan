@@ -122,3 +122,15 @@ export const Avatar = styled('img', {
   width: 48,
   borderRadius: '50%',
 })
+
+export const Container = styled('div', {
+  maxHeight: 300,
+  overflow: 'auto',
+  display: 'flex',
+  flexDirection: 'column',
+  gap: 12,
+  marginRight: -16,
+  marginLeft: -16,
+  paddingLeft: 16,
+  paddingRight: 16,
+})

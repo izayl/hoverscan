@@ -6,6 +6,6 @@ export type FeatureConfig = {
   address: Address
 }
 
-export type FeatureResolver<ResolverResult = Record<string, unknown>> = (
+export type FeatureResolver<T> = (
   config: FeatureConfig
-) => Promise<ResolverResult>
+) => Promise<T>

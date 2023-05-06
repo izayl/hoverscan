@@ -1,6 +1,6 @@
 import type { FeatureConfig, FeatureResolver } from './config'
 
-export const getTxn: FeatureResolver<{txn: number}> = async ({
+export const getTxn: FeatureResolver<{ txn: number }> = async ({
   publicClient,
   address,
 }: FeatureConfig) => {

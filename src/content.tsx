@@ -9,6 +9,7 @@ import { addressAtom } from './state/address'
 import { ALL_SUPPORTED_CHAINS } from './chain'
 import {
   ChainOverview,
+  Container,
   ContractAccount,
   EOAAccount,
   HoverCard,
@@ -46,13 +47,21 @@ export const getRootContainer = () => {
 
 const EoaOverview = () => {
   const eoaState = useAtomValue(eoaSyncAtom)
+  const address = useAtomValue(addressAtom)
   return (
-    <div>
-      EoaOverview
-      <pre>
-        {JSON.stringify(eoaState, null, 2)}
-      </pre>
-    </div>
+    <>
+      {
+        eoaState.sort((a, b) => (a.txn - b.txn) > 0 ? -1 : 1).map(({ chain, txn, nativeBalance }) => (
+          <ChainOverview
+            key={chain.id}
+            address={address}
+            chain={chain}
+            nativeBalance={nativeBalance.toString()}
+            txn={txn}
+          />
+        ))
+      }
+    </>
   )
 }
 
@@ -75,18 +84,11 @@ const HoverScanExtension: React.FC<{
             <EOAAccount ensName={ensName} address={address} />
           )}
         <SyncStatus syncChains={[mainnet]} syncedChains={[]} />
-        {[mainnet].map(chain => (
-          <ChainOverview
-            key={chain.id}
-            address={address}
-            chain={chain}
-            nativeBalance="0"
-            txn={0}
-          />
-        ))}
-        <Suspense fallback="loading...">
-          <EoaOverview />
-        </Suspense>
+        <Container>
+          <Suspense fallback="loading...">
+            <EoaOverview />
+          </Suspense>
+        </Container>
       </HoverCard>
     </Position>
   )
