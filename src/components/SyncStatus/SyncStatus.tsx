@@ -1,28 +1,24 @@
+import { useAtomValue } from 'jotai'
 import React, { useMemo } from 'react'
-import type { Chain } from 'viem'
 import { Row } from '../Layout'
 import { SyncButton } from './SyncStatus.styles'
-
-type SyncState = {
-  chain: Chain
-  synced: boolean
-  hasResult: boolean
-}
+import { eoaSyncAtom, eoaSyncStatesAtom, loadableEOASyncAtom, syncChainsAtom, syncedEOAChains, syncedExistEOAStatesAtom } from '~/state/sync'
 
 type SyncStatusProps = {
-  syncChains: Chain[]
-  syncedChains: SyncState[]
+  all: number
+  synced: number
+  existed: number
   onSync?: () => void
 }
 
 export const SyncStatus: React.FC<SyncStatusProps> = ({
-  syncChains,
-  syncedChains,
+  all,
+  synced,
+  existed,
   onSync,
 }) => {
-  const syncing = useMemo(() => syncedChains.length < syncChains.length, [syncChains, syncedChains])
-  const foundSynced = useMemo(() => syncedChains.filter((synced) => synced.hasResult), [syncedChains])
-  const label = syncing ? `Searching for ${syncChains.length} networks` : `found in ${foundSynced?.length} networks`
+  const syncing = useMemo(() => synced < all, [all, synced])
+  const label = syncing ? `Searching for ${all} networks` : `Founded in ${existed} networks`
 
   const onSyncButtonClick = () => {
     if (!syncing) {
@@ -33,7 +29,19 @@ export const SyncStatus: React.FC<SyncStatusProps> = ({
   return (
     <Row align="center" justify="between">
       <span>{label}</span>
-      <SyncButton syncing={syncing} onClick={onSyncButtonClick}>{ syncing ? `Syncing(${foundSynced?.length ?? 0}/${syncChains.length})` : 'Synced' }</SyncButton>
+      <SyncButton syncing={syncing} onClick={onSyncButtonClick}>
+        {syncing ? `Syncing(${synced ?? 0}/${all})` : 'Synced'}
+      </SyncButton>
     </Row>
+  )
+}
+
+export const EOASyncStatus = () => {
+  const syncedChains = useAtomValue(syncedEOAChains)
+  const allChains = useAtomValue(syncChainsAtom)
+  const existState = useAtomValue(syncedExistEOAStatesAtom)
+
+  return (
+    <SyncStatus all={allChains.length} synced={syncedChains.length} existed={existState.length} />
   )
 }

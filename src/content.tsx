@@ -12,11 +12,12 @@ import {
   Container,
   ContractAccount,
   EOAAccount,
+  EOASyncStatus,
   HoverCard,
   Position,
   SyncStatus,
 } from './components'
-import { eoaSyncAtom } from './state/sync'
+import { eoaSyncAtom, eoaSyncStatesAtom, syncChainsAtom, syncedExistEOAStatesAtom, useEOASync } from './state/sync'
 import { mainnet, mainnetClient } from '~/chain'
 
 console.log(`
@@ -46,17 +47,18 @@ export const getRootContainer = () => {
 }
 
 const EoaOverview = () => {
-  const eoaState = useAtomValue(eoaSyncAtom)
+  const existState = useAtomValue(syncedExistEOAStatesAtom)
   const address = useAtomValue(addressAtom)
+
   return (
     <>
       {
-        eoaState.sort((a, b) => (a.txn - b.txn) > 0 ? -1 : 1).map(({ chain, txn, nativeBalance }) => (
+        existState.sort((a, b) => (a.txn - b.txn) > 0 ? -1 : 1).map(({ chain, txn, balance }) => (
           <ChainOverview
             key={chain.id}
             address={address}
             chain={chain}
-            nativeBalance={nativeBalance.toString()}
+            nativeBalance={balance}
             txn={txn}
           />
         ))
@@ -72,6 +74,7 @@ const HoverScanExtension: React.FC<{
 }> = ({ address, onClose, position = { x: 0, y: 0 } }) => {
   const { ensName } = useWeb3Domain()
   const isContract = useIsContract(mainnetClient, address)
+  useEOASync()
 
   return (
     <Position x={position.x} y={position.y} offset={15}>
@@ -83,11 +86,9 @@ const HoverScanExtension: React.FC<{
           : (
             <EOAAccount ensName={ensName} address={address} />
           )}
-        <SyncStatus syncChains={[mainnet]} syncedChains={[]} />
+        <EOASyncStatus />
         <Container>
-          <Suspense fallback="loading...">
-            <EoaOverview />
-          </Suspense>
+          <EoaOverview />
         </Container>
       </HoverCard>
     </Position>
