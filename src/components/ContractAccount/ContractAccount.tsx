@@ -1,9 +1,12 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import type { Address } from 'viem'
 import { AddressText } from '../EOAAccount/EOAAccount.styles'
 import { Column, Row } from '../Layout'
 import { IdentIcon } from '../IdentIcon'
-import { MetaInfoGroup, MetaInfoItem, Tag } from './ContractAccount.styles'
+import { ContractName, MetaInfoGroup, MetaInfoItem, Tag } from './ContractAccount.styles'
+import { mainnet } from '~/chain'
+import type { ContractInfo } from '~/chain/explorer'
+import { getContractInfo } from '~/chain/explorer'
 
 type ContractAccountProps = {
   address?: Address
@@ -12,15 +15,30 @@ type ContractAccountProps = {
 export const ContractAccount: React.FC<ContractAccountProps> = ({
   address,
 }) => {
-  const contractName = 'Uniswap V2 Factory'
+  const [contractInfo, setContractInfo] = useState<ContractInfo>({
+    name: '...',
+    verified: false,
+  })
+
+  useEffect(() => {
+    try {
+      getContractInfo(mainnet.id, address).then((info) => {
+        console.log({ info })
+        setContractInfo(info)
+      })
+    } catch (error) {
+      console.error(error)
+    }
+  }, [address])
+
   return (
     <Column gap>
       <Row gap align="center">
         {/* @todo if contract is ERC20/ERC721/ERC1155, show the token image */}
         <IdentIcon address={address} />
         <Column gap justify="between">
-          <Row gap>
-            {contractName}
+          <Row gap align="baseline">
+            <ContractName>{contractInfo.name}</ContractName>
             <Tag>Contract</Tag>
           </Row>
           <AddressText>
@@ -30,7 +48,7 @@ export const ContractAccount: React.FC<ContractAccountProps> = ({
       </Row>
       <MetaInfoGroup>
         <MetaInfoItem>ERC20</MetaInfoItem>
-        <MetaInfoItem>View Source</MetaInfoItem>
+        <MetaInfoItem>{ contractInfo.verified ? 'Verified' : 'Not Verified' }</MetaInfoItem>
         <MetaInfoItem>Open Explorer</MetaInfoItem>
       </MetaInfoGroup>
     </Column>

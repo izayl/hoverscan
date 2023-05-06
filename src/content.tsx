@@ -1,5 +1,5 @@
 import type { PlasmoCSConfig, PlasmoGetStyle, PlasmoRender } from 'plasmo'
-import { Address, getAddress, isAddress } from 'viem'
+import { getAddress, isAddress, type Address } from 'viem'
 import { Provider, useAtom, useAtomValue } from 'jotai'
 import React, { forwardRef, useEffect, useMemo, useRef, useState } from 'react'
 import { createRoot } from 'react-dom/client'
@@ -145,7 +145,7 @@ const Content = () => {
   )
 }
 
-export const render: PlasmoRender = async ({ createRootContainer }) => {
+export const render: PlasmoRender<HTMLDivElement> = async ({ createRootContainer }) => {
   const rootContainer = await createRootContainer(null)
   const root = createRoot(rootContainer)
   root.render(

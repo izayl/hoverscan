@@ -1,7 +1,7 @@
 import wretch from 'wretch'
 import QueryStringAddon from 'wretch/addons/queryString'
-import { arbitrum, avalanche, bsc, fantom, mainnet, optimism, polygon } from 'viem/chains'
 import type { Address } from 'viem'
+import { arbitrumOne, avalanche, bsc, fantom, mainnet, optimism, polygon } from './chains'
 
 export type BlockScanApi = {
   // BlockScan Explorer name
@@ -54,7 +54,7 @@ export const avalancheScanApi: BlockScanApi = {
 
 export const arbiscanApi: BlockScanApi = {
   name: 'ArbiScan',
-  chainId: arbitrum.id,
+  chainId: arbitrumOne.id,
   endpoint: 'https://arbiscan.io/api',
 }
 
@@ -101,7 +101,11 @@ export type ContractInfo = {
   name: string
   verified: boolean
 }
-export const getContractInfo = async (api: BlockScanApi, address: Address): Promise<ContractInfo> => {
+export const getContractInfo = async (chainId: number, address: Address): Promise<ContractInfo> => {
+  const api = blockScanApis[chainId]
+  if (!api) {
+    throw new Error('Unsupported chain')
+  }
   const { result, status } = await wretch(api.endpoint)
     .addon(QueryStringAddon)
     .query({
@@ -118,12 +122,12 @@ export const getContractInfo = async (api: BlockScanApi, address: Address): Prom
   //   message: "NOTOK",
   //   result: "Max rate limit reached, please use API Key for higher rate limit"
   // }
+  console.log('result', result[0]?.ContractName)
   if (status !== '1') {
     throw new Error('reach rate limit')
   }
-
   return {
-    name: result[0]?.ContractName ?? 'Unknown',
+    name: result[0]?.ContractName !== '' ? result[0]?.ContractName : 'Unknown',
     verified: result[0]?.SourceCode !== '',
   }
 }

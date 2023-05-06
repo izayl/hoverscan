@@ -1,5 +1,9 @@
 import { styled } from '~/stitches.config'
 
+export const ContractName = styled('span', {
+  fontWeight: 500,
+})
+
 export const Tag = styled('span', {
   borderRadius: 12,
   py: 3,
