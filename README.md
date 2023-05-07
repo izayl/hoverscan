@@ -1,33 +1,32 @@
-This is a [Plasmo extension](https://docs.plasmo.com/) project bootstrapped with [`plasmo init`](https://www.npmjs.com/package/plasmo).
+<p align="center">
+  <img src="https://user-images.githubusercontent.com/10740043/236673483-34cff733-f156-4ba3-b7cc-eae11a9b0cfb.png" />
+</p>
 
-## Getting Started
+# Hoverscan
 
-First, run the development server:
+Hoverscan is a browser extension that provide One-click utilities for address tracing and tagging, you can use it to scan addresses on any web page, and it will automatically detect and highlight addresses, and provide a quick way to trace and tag them.
 
-```bash
-pnpm dev
-# or
-npm run dev
-```
+## Screenshots
 
-Open your browser and load the appropriate development build. For example, if you are developing for the chrome browser, using manifest v3, use: `build/chrome-mv3-dev`.
+|                                                      Screen Capture 1                                                      |                                                      Screen Capture 2                                                      |
+| :------------------------------------------------------------------------------------------------------------------------: | :------------------------------------------------------------------------------------------------------------------------: |
+| ![Screen Capture 1](https://user-images.githubusercontent.com/10740043/236673682-b77932d9-cb79-4be5-9dba-14ee91ec09a1.png) | ![Screen Capture 2](https://user-images.githubusercontent.com/10740043/236673777-972f1181-413f-41ae-b457-b39329f3298a.png) |
 
-You can start editing the popup by modifying `popup.tsx`. It should auto-update as you make changes. To add an options page, simply add a `options.tsx` file to the root of the project, with a react component default exported. Likewise to add a content page, add a `content.ts` file to the root of the project, importing some module and do some logic, then reload the extension on your browser.
+## Features
 
-For further guidance, [visit our Documentation](https://docs.plasmo.com/)
+- [x] EVM Chain Address Tracing
+- [x] EVM Chain Contract Tracing
+- [ ] BTC Address Tracing
+- [ ] BTC BRC20 Tracing
+- [ ] Address Tagging
+- [ ] Solana Address Tracing
+- [ ] Cosmos Address Tracing
+- [ ] Aptos/Sui Address Tracing
+- [ ] .bnb .bit .arb domain support
 
-## Making production build
+## Contributing
 
-Run the following:
+Hoverscan is an open-source project and welcomes contributions from the community. Feel free to submit issues, feature requests, or pull requests on the [GitHub repository](https://github.com/izayl/hoverscan).
 
-```bash
-pnpm build
-# or
-npm run build
-```
-
-This should create a production bundle for your extension, ready to be zipped and published to the stores.
-
-## Submit to the webstores
-
-The easiest way to deploy your Plasmo extension is to use the built-in [bpp](https://bpp.browser.market) GitHub action. Prior to using this action however, make sure to build your extension and upload the first version to the store to establish the basic credentials. Then, simply follow [this setup instruction](https://docs.plasmo.com/framework/workflows/submit) and you should be on your way for automated submission!
+----
+[AGPL3 License](./LICENSE) @2023 [izayl](https://github.com/izayl)
