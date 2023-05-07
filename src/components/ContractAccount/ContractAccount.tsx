@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import type { Address } from 'viem'
+import type { Address, Chain } from 'viem'
 import { AddressText } from '../EOAAccount/EOAAccount.styles'
 import { Column, Row } from '../Layout'
 import { IdentIcon } from '../IdentIcon'
@@ -7,7 +7,6 @@ import { ContractName, MetaInfoGroup, MetaInfoItem, Tag } from './ContractAccoun
 import { mainnet, mainnetClient } from '~/chain'
 import type { ContractInfo } from '~/chain/explorer'
 import { getContractInfo } from '~/chain/explorer'
-import { isNFTContract } from '~/utils/isNFTContract'
 import { type ContractType, useContractType } from '~/hooks'
 
 type ContractAccountProps = {
@@ -23,6 +22,20 @@ export const ContractAccount: React.FC<ContractAccountProps> = ({
   })
   const [contractType, setContractType] = useState<ContractType>('Unknown Type')
   const getContractType = useContractType()
+  // @notice: support mainnet only for now
+  const viewOnExplorer = () => {
+    window.open(`${mainnet.blockExplorers.default.url}/address/${address}`, '_blank')
+  }
+  const viewSourceCode = () => {
+    if (contractInfo.verified) window.open(`https://vscode.blockscan.com/ethereum/${address}`, '_blank')
+  }
+  const viewOnExchange = () => {
+    if (contractType === 'ERC20') {
+      window.open(`https://etherscan.io/token/${address}`, '_blank')
+    } else if (contractType === 'ERC1155' || contractType === 'ERC721') {
+      window.open(`https://opensea.io/assets?search[query]=${address}`, '_blank')
+    }
+  }
 
   useEffect(() => {
     try {
@@ -49,9 +62,9 @@ export const ContractAccount: React.FC<ContractAccountProps> = ({
         </Column>
       </Row>
       <MetaInfoGroup>
-        <MetaInfoItem>{contractType}</MetaInfoItem>
-        <MetaInfoItem>{ contractInfo.verified ? 'Verified' : 'Not Verified' }</MetaInfoItem>
-        <MetaInfoItem>Open Explorer</MetaInfoItem>
+        <MetaInfoItem onClick={viewOnExchange}>{contractType}</MetaInfoItem>
+        <MetaInfoItem onClick={viewSourceCode}>{ contractInfo.verified ? '✅ Verified' : '🟡 Not Verified' }</MetaInfoItem>
+        <MetaInfoItem onClick={viewOnExplorer}>Open Explorer</MetaInfoItem>
       </MetaInfoGroup>
     </Column>
   )
