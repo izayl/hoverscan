@@ -1,0 +1,22 @@
+name: Build Artifacts
+description: 'Builds the artifacts for extension releases.'
+
+permissions:
+  contents: write
+  discussions: write
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Build
+      uses: pnpm build
+
+    - name: Release
+      uses: softprops/action-gh-release@v1
+      with:
+        files: build/*.zip
+        body: |
+          # Changelog
+          Please see [CHANGELOG.md](https://github.com/hoverscan/blob/main/CHANGELOG.md) for more information on what has changed recently.
+        draft: false
+        prerelease: false
