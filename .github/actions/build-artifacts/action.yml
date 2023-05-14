@@ -16,6 +16,7 @@ runs:
       uses: softprops/action-gh-release@v1
       with:
         files: build/*.zip
+        tag_name: ${{ github.ref }}
         body: |
           # Changelog
           Please see [CHANGELOG.md](https://github.com/hoverscan/blob/main/CHANGELOG.md) for more information on what has changed recently.
