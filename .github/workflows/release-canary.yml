@@ -1,0 +1,69 @@
+name: Release (Canary)
+
+on:
+  pull_request:
+    types: [labeled]
+    branches:
+      - main
+
+permissions:
+  contents: write
+  discussions: write
+
+jobs:
+  canary:
+    if: contains(github.event.pull_request.labels.*.name, 'release canary')
+    name: Release Canary
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Install
+        uses: './.github/actions/install-deps'
+      
+      - name: Bump Canary Version
+        run: |
+          pnpm version --no-git-tag-version --new-version prerelease --preid canary
+    
+      - name: Version
+        run: |
+          echo "VERSION=$(npm pkg get version)" >> $GITHUB_ENV
+          # echo "VERSION_TAG=$(npm pkg get version | sed 's/\./-/g')" >> $GITHUB_ENV
+
+      - name: Build
+        run: pnpm build
+
+      - name: Release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: build/*.zip
+          tag_name: ${{ env.VERSION }}
+          body: |
+            # Canary Release
+            ${{ github.event.pull_request.labels.*.description }}
+          draft: false
+          prerelease: true
+
+      - name: Comment
+        uses: actions/github-script@v3
+        with:
+          script: |
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: `:rocket: Canary release for ${process.env.VERSION} is ready!`
+            })
+
+      - name: Update PR
+        uses: actions/github-script@v3
+        with:
+          script: |
+            github.rest.issues.removeLabel({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              name: 'release canary'
+            })
+
+      
