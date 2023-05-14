@@ -18,13 +18,18 @@ jobs:
     timeout-minutes: 10
 
     steps:
+      - name: 'Checkout'
+        uses: 'actions/checkout@v2'
+        with:
+          fetch-depth: 0
+
       - name: Install
         uses: './.github/actions/install-deps'
-      
+
       - name: Bump Canary Version
         run: |
           pnpm version --no-git-tag-version --new-version prerelease --preid canary
-    
+
       - name: Version
         run: |
           echo "VERSION=$(npm pkg get version)" >> $GITHUB_ENV
@@ -65,5 +70,3 @@ jobs:
               repo: context.repo.repo,
               name: 'release canary'
             })
-
-      
