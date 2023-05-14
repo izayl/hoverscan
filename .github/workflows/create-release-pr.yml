@@ -1,0 +1,25 @@
+name: Create Release PR
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  create-release-pr:
+    name: Create Release PR
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install
+        uses: './.github/actions/install-deps'
+
+      - name: Create Release Pull Request
+        id: changesets
+        uses: changesets/action@v1
+        with:
+          version: pnpm changeset:version
+          publish: pnpm changeset:release
+          commit: 'chore(changeset): bump version'
+          title: 'chore(changeset): bump version'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
