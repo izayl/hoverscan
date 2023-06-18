@@ -1,5 +1,5 @@
 import type { PlasmoCSConfig, PlasmoGetStyle, PlasmoRender } from 'plasmo'
-import cssText from 'data-text:~src/base.css'
+import cssText from 'data-text:~/base.css'
 import { type Address, getAddress, isAddress } from 'viem'
 import { Provider, useAtom, useAtomValue } from 'jotai'
 import React, { forwardRef, useEffect, useMemo, useRef, useState } from 'react'
@@ -31,15 +31,12 @@ export const config: PlasmoCSConfig = {
   all_frames: true,
 }
 
-export const getStyle: PlasmoGetStyle = () => {
-  const style = document.createElement('style')
-  style.textContent = cssText
-  return style
-}
-
 export const getRootContainer = () => {
   const shadowHost = document.createElement('hoverscan-content')
   const shadowRoot = shadowHost.attachShadow({ mode: 'open' })
+  const style = document.createElement('style')
+  style.textContent = cssText
+  shadowRoot.appendChild(style)
   document.body.insertAdjacentElement('beforebegin', shadowHost)
   return shadowRoot
 }
