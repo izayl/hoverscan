@@ -1,10 +1,11 @@
-import type { PlasmoCSConfig, PlasmoGetStyle, PlasmoRender } from 'plasmo'
-import { getAddress, isAddress, type Address } from 'viem'
+import type { PlasmoCSConfig, PlasmoGetShadowHostId, PlasmoGetStyle, PlasmoRender } from 'plasmo'
+import cssText from 'data-text:~src/base.css'
+import { type Address, getAddress, isAddress } from 'viem'
 import { Provider, useAtom, useAtomValue } from 'jotai'
 import React, { forwardRef, useEffect, useMemo, useRef, useState } from 'react'
 import { createRoot } from 'react-dom/client'
 import { useIsContract, useMouseSelection, useWeb3Domain } from './hooks'
-import { getCssText } from './stitches.config'
+// import { getCssText } from './stitches.config'
 import { addressAtom } from './state/address'
 import {
   ChainOverview,
@@ -19,11 +20,11 @@ import { syncedExistEOAStatesAtom, useEOASync } from './state/sync'
 import { useClickOutside } from './hooks/useClickOutside'
 import { mainnetClient } from '~/chain'
 
-console.log(`
- +-++-++-++-++-++-++-++-++-+
- |H||O||V||E||R||S||C||A||N|
- +-++-++-++-++-++-++-++-++-+
-`)
+// console.log(`
+//  +-++-++-++-++-++-++-++-++-+
+//  |H||O||V||E||R||S||C||A||N|
+//  +-++-++-++-++-++-++-++-++-+
+// `)
 
 export const config: PlasmoCSConfig = {
   matches: ['*://*/*'],
@@ -32,17 +33,15 @@ export const config: PlasmoCSConfig = {
 
 export const getStyle: PlasmoGetStyle = () => {
   const style = document.createElement('style')
-  style.textContent = getCssText()
+  style.textContent = cssText
   return style
 }
 
-// @fixme: stitches not support Shadow DOM now
 export const getRootContainer = () => {
-  const root = document.createElement('div')
-  root.id = 'hoverscan-root'
-  const firstChild = document.body.firstChild
-  document.body.insertBefore(root, firstChild)
-  return root
+  const shadowHost = document.createElement('hoverscan')
+  const shadowRoot = shadowHost.attachShadow({ mode: 'open' })
+  document.body.insertAdjacentElement('beforebegin', shadowHost)
+  return shadowRoot
 }
 
 const EoaOverview = () => {
