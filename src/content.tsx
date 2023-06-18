@@ -1,4 +1,4 @@
-import type { PlasmoCSConfig, PlasmoGetShadowHostId, PlasmoGetStyle, PlasmoRender } from 'plasmo'
+import type { PlasmoCSConfig, PlasmoGetStyle, PlasmoRender } from 'plasmo'
 import cssText from 'data-text:~src/base.css'
 import { type Address, getAddress, isAddress } from 'viem'
 import { Provider, useAtom, useAtomValue } from 'jotai'
@@ -38,7 +38,7 @@ export const getStyle: PlasmoGetStyle = () => {
 }
 
 export const getRootContainer = () => {
-  const shadowHost = document.createElement('hoverscan')
+  const shadowHost = document.createElement('hoverscan-content')
   const shadowRoot = shadowHost.attachShadow({ mode: 'open' })
   document.body.insertAdjacentElement('beforebegin', shadowHost)
   return shadowRoot
