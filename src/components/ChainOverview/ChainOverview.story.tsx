@@ -15,13 +15,13 @@ type Story = StoryObj<typeof Component>
 export const ChainOverview: Story = {
   render: () => {
     return (
-      <Column gap="true">
+      <Column gap>
         {Object.values(CHAIN_THEMES).map((theme) => (
           <Component
             key={theme.chain.id}
             address="0x1234567890123456789012345678901234567890"
             chain={theme.chain}
-            nativeBalance="100"
+            nativeBalance={100n}
             txn={100}
           />
         ))}

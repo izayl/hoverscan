@@ -1,52 +1,16 @@
-import { ChevronRight } from '../icons'
-import { styled } from '~/stitches.config'
+import { tv } from 'tailwind-variants'
+export const overview = tv({
+  base: 'flex rounded p-3 gap-3 items-center cursor-pointer transition-all duration-200 ease-in-out hover:brightness-125',
+})
 
-export const StyledOverview = styled('div', {
-  display: 'flex',
-  borderRadius: 8,
-  padding: 12,
-  gap: 12,
-  alignItems: 'center',
-  cursor: 'pointer',
-  transition: 'all 0.2s ease-in-out',
-
-  '&:hover': {
-    filter: 'brightness(1.25)',
+export const overviewSlot = tv({
+  slots: {
+    overview: 'flex rounded-md p-3 gap-3 items-center cursor-pointer transition-all duration-200 ease-in-out hover:brightness-125 w-full',
+    networkImage: 'inline-block h-7 w-7 rounded-full',
+    networkName: 'font-semibold text-sm text-black',
+    overviewInfo: 'font-normal text-xs text-gray-600',
+    asset: "after:content-['•'] after:mx-1",
+    txn: '',
+    indicatorRight: 'ml-auto',
   },
-})
-
-export const NetworkImage = styled('img', {
-  height: 28,
-  width: 28,
-  borderRadius: '50%',
-})
-
-export const NetworkName = styled('span', {
-  fontWeight: 500,
-  fontSize: 14,
-  lineHeight: '20px',
-  color: '#000',
-})
-
-export const OverviewInfo = styled('div', {
-  fontWeight: 'normal',
-  fontSize: 12,
-  lineHeight: '14px',
-  color: '#666',
-
-  '& span': {
-    '&::after': {
-      content: '•',
-      mx: 4,
-    },
-  },
-  '& span:last-of-type': {
-    '&::after': {
-      content: '',
-    },
-  },
-})
-
-export const IndicatorRight = styled(ChevronRight, {
-  marginLeft: 'auto',
 })
