@@ -3,7 +3,7 @@ import type { Address } from 'viem'
 import { ENSMark, UNSMark } from '../icons'
 import { Avatar, Column, Row } from '../Layout'
 import { IdentIcon } from '../IdentIcon'
-import { AddressText, LensGradientText, ResolvedName } from './EOAAccount.styles'
+import { AddressText, LensGradientText, ResolvedName, eoaSlots } from './EOAAccount.styles'
 
 type EOAAccountProps = {
   address?: Address
@@ -24,6 +24,8 @@ enum NameHandle {
   LENS = 'Lens',
 }
 
+const { resolvedName, lens, addressText } = eoaSlots()
+
 export const EOAAccount: React.FC<EOAAccountProps> = ({
   address, ensName, ensAvatar, unsName, unsAvatar, lensName, lensAvatar,
 }) => {
@@ -40,13 +42,13 @@ export const EOAAccount: React.FC<EOAAccountProps> = ({
       {avatar ? <Avatar src={avatar} alt="avatar" /> : <IdentIcon address={address} />}
       <Column gap justify="between">
         <Row gap>
-          {ensName ? <ResolvedName onClick={() => setSelectedNameHandle(NameHandle.ENS)}><ENSMark /> {ensName}</ResolvedName> : null}
-          {lensName ? <ResolvedName onClick={() => setSelectedNameHandle(NameHandle.LENS)}>🌿 <LensGradientText>{lensName}</LensGradientText></ResolvedName> : null}
-          {unsName ? <ResolvedName onClick={() => setSelectedNameHandle(NameHandle.UNS)}><UNSMark /> {unsName}</ResolvedName> : null}
+          {ensName ? <div className={resolvedName()} onClick={() => setSelectedNameHandle(NameHandle.ENS)}><ENSMark /> {ensName}</div> : null}
+          {lensName ? <div className={resolvedName()} onClick={() => setSelectedNameHandle(NameHandle.LENS)}>🌿 <span className={lens()}>{lensName}</span></div> : null}
+          {unsName ? <div className={resolvedName()} onClick={() => setSelectedNameHandle(NameHandle.UNS)}><UNSMark /> {unsName}</div> : null}
         </Row>
-        <AddressText>
+        <div className={addressText()}>
           {address}
-        </AddressText>
+        </div>
       </Column>
     </Row>
   )
