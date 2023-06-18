@@ -12,11 +12,16 @@ runs:
       shell: bash
       run: pnpm build
 
+    - name: Tag
+      step: v
+      shell: bash
+      run: echo "version=$(npm pkg get version | sed 's/"//g')" >> $GITHUB_OUTPUT
+
     - name: Release
       uses: softprops/action-gh-release@v1
       with:
         files: build/*.zip
-        tag_name: ${{ github.ref }}
+        tag_name: ${{ steps.v.outputs.version }}
         body: |
           # Changelog
           Please see [CHANGELOG.md](https://github.com/hoverscan/blob/main/CHANGELOG.md) for more information on what has changed recently.
