@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react'
-import type { Address, Chain } from 'viem'
+import type { Address } from 'viem'
 import { AddressText } from '../EOAAccount/EOAAccount.styles'
 import { Column, Row } from '../Layout'
 import { IdentIcon } from '../IdentIcon'
-import { ContractName, MetaInfoGroup, MetaInfoItem, Tag } from './ContractAccount.styles'
+import { contractAccountSlots } from './ContractAccount.styles'
 import { mainnet, mainnetClient } from '~/chain'
 import type { ContractInfo } from '~/chain/explorer'
 import { getContractInfo } from '~/chain/explorer'
@@ -12,6 +12,8 @@ import { type ContractType, useContractType } from '~/hooks'
 type ContractAccountProps = {
   address?: Address
 }
+
+const { tag, metaInfoGroup, metaInfoItem } = contractAccountSlots()
 
 export const ContractAccount: React.FC<ContractAccountProps> = ({
   address,
@@ -53,19 +55,19 @@ export const ContractAccount: React.FC<ContractAccountProps> = ({
         <IdentIcon address={address} />
         <Column gap justify="between">
           <Row gap align="baseline">
-            <ContractName>{contractInfo.name}</ContractName>
-            <Tag>Contract</Tag>
+            <span className="font-medium">{contractInfo.name}</span>
+            <span className={tag()}>Contract</span>
           </Row>
           <AddressText>
             {address}
           </AddressText>
         </Column>
       </Row>
-      <MetaInfoGroup>
-        <MetaInfoItem onClick={viewOnExchange}>{contractType}</MetaInfoItem>
-        <MetaInfoItem onClick={viewSourceCode}>{ contractInfo.verified ? '✅ Verified' : '🟡 Not Verified' }</MetaInfoItem>
-        <MetaInfoItem onClick={viewOnExplorer}>Open Explorer</MetaInfoItem>
-      </MetaInfoGroup>
+      <div className={metaInfoGroup()}>
+        <div className={metaInfoItem({ class: 'rounded-r-none border-r-0' })} onClick={viewOnExchange}>{contractType}</div>
+        <div className={metaInfoItem({ class: 'rounded-none' })} onClick={viewSourceCode}>{ contractInfo.verified ? '✅ Verified' : '🟡 Not Verified' }</div>
+        <div className={metaInfoItem({ class: 'rounded-l-none border-l-0' })} onClick={viewOnExplorer}>Open Explorer</div>
+      </div>
     </Column>
   )
 }

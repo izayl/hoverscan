@@ -8,10 +8,11 @@ const avatar = tv({
 type AvatarVariants = VariantProps<typeof avatar>
 
 type AvatarProps = AvatarVariants & {
-  children: React.ReactNode
+  src: string
+  alt?: string
 }
 
 export const Avatar: React.FC<AvatarProps> = (props) => {
-  const { children, ...rest } = props
-  return <img className={avatar(rest)}>{children}</img>
+  const { src, alt, ...rest } = props
+  return <img src={src} alt={alt} className={avatar(rest)} />
 }
