@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import type { Address } from 'viem'
-import { AddressText } from '../EOAAccount/EOAAccount.styles'
+import { eoaSlots } from '../EOAAccount/EOAAccount.styles'
 import { Column, Row } from '../Layout'
 import { IdentIcon } from '../IdentIcon'
 import { contractAccountSlots } from './ContractAccount.styles'
@@ -14,6 +14,7 @@ type ContractAccountProps = {
 }
 
 const { tag, metaInfoGroup, metaInfoItem } = contractAccountSlots()
+const { addressText } = eoaSlots()
 
 export const ContractAccount: React.FC<ContractAccountProps> = ({
   address,
@@ -58,9 +59,9 @@ export const ContractAccount: React.FC<ContractAccountProps> = ({
             <span className="font-medium">{contractInfo.name}</span>
             <span className={tag()}>Contract</span>
           </Row>
-          <AddressText>
+          <div className={addressText()}>
             {address}
-          </AddressText>
+          </div>
         </Column>
       </Row>
       <div className={metaInfoGroup()}>

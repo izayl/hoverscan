@@ -1,11 +1,10 @@
-import type { PlasmoCSConfig, PlasmoGetStyle, PlasmoRender } from 'plasmo'
+import type { PlasmoCSConfig, PlasmoRender } from 'plasmo'
 import cssText from 'data-text:~/base.css'
 import { type Address, getAddress, isAddress } from 'viem'
 import { Provider, useAtom, useAtomValue } from 'jotai'
 import React, { forwardRef, useEffect, useMemo, useRef, useState } from 'react'
 import { createRoot } from 'react-dom/client'
 import { useIsContract, useMouseSelection, useWeb3Domain } from './hooks'
-// import { getCssText } from './stitches.config'
 import { addressAtom } from './state/address'
 import {
   ChainOverview,
