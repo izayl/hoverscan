@@ -1,3 +1,4 @@
+import React from 'react'
 import { type VariantProps, tv } from 'tailwind-variants'
 
 const syncButton = tv({
