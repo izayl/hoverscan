@@ -11,6 +11,7 @@ export interface IconProps {
   label?: string
   onClick?: () => void
   className?: string
+  type?: React.ReactNode
 }
 
 export { default as Pin } from './Pin'
@@ -26,11 +27,7 @@ const icon = tv({
   base: 'flex items-center justify-center cursor-pointer rounded-sm bg-white p-0.5 hover:brightness-[0.95]',
 })
 
-export const Icon: React.FC<{
-  children?: React.ReactNode
-  type?: React.ReactNode
-  className?: string
-}> = ({
+export const Icon: React.FC<React.PropsWithChildren<IconProps>> = ({
   children,
   type,
   className,
