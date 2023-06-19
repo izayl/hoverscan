@@ -1,7 +1,7 @@
 {
   "name": "hoverscan",
   "displayName": "Hoverscan",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "packageManager": "pnpm@8.5.0",
   "description": "A Browser extension show and tag address/contract cross-chain.",
   "author": "izayl",
