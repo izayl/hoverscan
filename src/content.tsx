@@ -30,8 +30,10 @@ export const config: PlasmoCSConfig = {
   all_frames: true,
 }
 
+const SHADOW_HOST_ID = 'hoverscan-content'
+
 export const getRootContainer = () => {
-  const shadowHost = document.createElement('hoverscan-content')
+  const shadowHost = document.createElement(SHADOW_HOST_ID)
   const shadowRoot = shadowHost.attachShadow({ mode: 'open' })
   const style = document.createElement('style')
   style.textContent = cssText
@@ -95,7 +97,7 @@ HoverScanExtension.displayName = 'HoverScanExtension'
 
 const Content = () => {
   const ref = useRef<HTMLDivElement>(null)
-  const { selection, clearSelection, selectPosition } = useMouseSelection(ref)
+  const { selection, clearSelection, selectPosition } = useMouseSelection(SHADOW_HOST_ID, ref)
   const [isOpen, setIsOpen] = useState(false)
   const maybeAddress = useMemo(() => selection?.toString()?.trim(), [selection])
   // @todo support regex parse or dom parse for better recognition
@@ -108,7 +110,7 @@ const Content = () => {
     }
   }, [isValidAddress])
 
-  useClickOutside(ref, () => {
+  useClickOutside(SHADOW_HOST_ID, () => {
     if (isOpen) {
       onClose()
     }
