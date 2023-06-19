@@ -1,29 +1,9 @@
-import { styled } from '~/stitches.config'
+import { tv } from 'tailwind-variants'
 
-export const ResolvedName = styled('div', {
-  borderRadius: 12,
-  py: 3,
-  px: 9,
-  backgroundColor: '$bg1',
-  fontWeight: 500,
-  fontSize: 14,
-  lineHeight: 1.4,
-  cursor: 'pointer',
-  display: 'flex',
-  alignItems: 'center',
-  gap: 4,
-})
-
-export const LensGradientText = styled('span', {
-  backgroundImage: 'linear-gradient(to right,#7c3aed,#db2777)',
-  backgroundClip: 'text',
-  color: 'transparent',
-})
-
-export const AddressText = styled('div', {
-  overflowWrap: 'anywhere',
-  fontSize: 12,
-  fontWeight: 500,
-  lineHeight: 1.4,
-  color: '#444',
+export const eoaSlots = tv({
+  slots: {
+    resolvedName: 'rounded-xl py-0.5 px-2 font-medium text-sm bg-gray-100 cursor-pointer flex items-center gap-1',
+    lens: 'bg-clip-text text-transparent bg-gradient-to-r from-purple-500 to-pink-500',
+    addressText: 'text-xs font-medium text-[#444] break-all',
+  },
 })

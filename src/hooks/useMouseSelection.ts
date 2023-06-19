@@ -1,13 +1,17 @@
-import { MutableRefObject, useEffect, useState } from 'react'
+import { type MutableRefObject, useEffect, useState } from 'react'
 
 const ZERO_POSITION = { x: 0, y: 0 }
 
-export const useMouseSelection = (ref?: MutableRefObject<HTMLElement | null>) => {
+export const useMouseSelection = (
+  root: string,
+  ref?: MutableRefObject<HTMLElement | null>,
+) => {
   const [selectPosition, setSelectPosition] = useState(ZERO_POSITION)
   const [selection, setSelection] = useState<Selection|null>(null)
 
   const onMouseUp = (e: MouseEvent) => {
-    if (ref?.current?.contains(e.target as Node)) return
+    const shadowRootEl = e?.target as Element
+    if (shadowRootEl?.tagName?.toLowerCase() === root.toLowerCase()) return
     const selection = window.getSelection()
     if (selection?.toString()) {
       setSelection(selection)
@@ -24,7 +28,8 @@ export const useMouseSelection = (ref?: MutableRefObject<HTMLElement | null>) =>
   }
 
   const clearSelection = (e?: MouseEvent) => {
-    if (ref?.current?.contains(e?.target as Node)) return
+    const shadowRootEl = e?.target as Element
+    if (shadowRootEl?.tagName?.toLowerCase() === root.toLowerCase()) return
     setSelection(null)
     if (window.getSelection) {
       if (window.getSelection()?.empty) { // Chrome

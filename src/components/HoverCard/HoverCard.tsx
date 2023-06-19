@@ -12,10 +12,10 @@ const Header: React.FC<{
   onClose,
 }) => {
   return (
-    <Row justify="between" css={{ width: '100%' }}>
-      <Text css={{ fontWeight: 600 }}>Hoverscan</Text>
+    <Row justify="between" width="fullWidth">
+      <Text font="semibold">Hoverscan</Text>
 
-      <Row css={{ gap: 10 }} align="center">
+      <Row gap={10} align="center">
         {/* <Icon type={<Pin />} /> */}
         {/* <Icon type={<Sun />} /> */}
         {/* <Icon type={<Bookmark />} /> */}

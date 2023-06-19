@@ -1,7 +1,8 @@
 import React from 'react'
 import type { Address, Chain } from 'viem'
 import { Column } from '../Layout'
-import { IndicatorRight, NetworkImage, NetworkName, OverviewInfo, StyledOverview } from './ChainOverview.styles'
+import { ChevronRight } from '../icons'
+import { overviewSlot } from './ChainOverview.styles'
 import CHAIN_THEMES from '~/chain/theme'
 
 type ChainOverview = {
@@ -10,6 +11,8 @@ type ChainOverview = {
   nativeBalance: bigint
   txn: number
 }
+
+const { overview, networkImage, networkName, overviewInfo, asset, indicatorRight } = overviewSlot()
 
 export const ChainOverview: React.FC<React.PropsWithChildren<ChainOverview>> = ({
   address,
@@ -24,16 +27,16 @@ export const ChainOverview: React.FC<React.PropsWithChildren<ChainOverview>> = (
   const { decimals, symbol } = chain.nativeCurrency
   const balance = nativeBalance * 10000n / BigInt(10 ** decimals)
   return (
-    <StyledOverview css={{ backgroundColor: theme.background }} onClick={viewOnExplorer}>
-      <NetworkImage src={theme.iconUrl} alt={chain.name} />
+    <div className={overview()} style={{ backgroundColor: theme.background }} onClick={viewOnExplorer}>
+      <img className={networkImage()} src={theme.iconUrl} alt={chain.name} />
       <Column>
-        <NetworkName>{chain.name}</NetworkName>
-        <OverviewInfo>
-          <span>{Number(balance) / 10000} {symbol}</span>
+        <div className={networkName()}>{chain.name}</div>
+        <div className={overviewInfo()}>
+          <span className={asset()}>{Number(balance) / 10000} {symbol}</span>
           <span>{txn} Transactions</span>
-        </OverviewInfo>
+        </div>
       </Column>
-      <IndicatorRight />
-    </StyledOverview>
+      <ChevronRight className={indicatorRight()} />
+    </div>
   )
 }

@@ -1,10 +1,10 @@
-import type { PlasmoCSConfig, PlasmoGetStyle, PlasmoRender } from 'plasmo'
-import { getAddress, isAddress, type Address } from 'viem'
+import type { PlasmoCSConfig, PlasmoRender } from 'plasmo'
+import cssText from 'data-text:~/base.css'
+import { type Address, getAddress, isAddress } from 'viem'
 import { Provider, useAtom, useAtomValue } from 'jotai'
 import React, { forwardRef, useEffect, useMemo, useRef, useState } from 'react'
 import { createRoot } from 'react-dom/client'
 import { useIsContract, useMouseSelection, useWeb3Domain } from './hooks'
-import { getCssText } from './stitches.config'
 import { addressAtom } from './state/address'
 import {
   ChainOverview,
@@ -19,30 +19,27 @@ import { syncedExistEOAStatesAtom, useEOASync } from './state/sync'
 import { useClickOutside } from './hooks/useClickOutside'
 import { mainnetClient } from '~/chain'
 
-console.log(`
- +-++-++-++-++-++-++-++-++-+
- |H||O||V||E||R||S||C||A||N|
- +-++-++-++-++-++-++-++-++-+
-`)
+// console.log(`
+//  +-++-++-++-++-++-++-++-++-+
+//  |H||O||V||E||R||S||C||A||N|
+//  +-++-++-++-++-++-++-++-++-+
+// `)
 
 export const config: PlasmoCSConfig = {
   matches: ['*://*/*'],
   all_frames: true,
 }
 
-export const getStyle: PlasmoGetStyle = () => {
-  const style = document.createElement('style')
-  style.textContent = getCssText()
-  return style
-}
+const SHADOW_HOST_ID = 'hoverscan-content'
 
-// @fixme: stitches not support Shadow DOM now
 export const getRootContainer = () => {
-  const root = document.createElement('div')
-  root.id = 'hoverscan-root'
-  const firstChild = document.body.firstChild
-  document.body.insertBefore(root, firstChild)
-  return root
+  const shadowHost = document.createElement(SHADOW_HOST_ID)
+  const shadowRoot = shadowHost.attachShadow({ mode: 'open' })
+  const style = document.createElement('style')
+  style.textContent = cssText
+  shadowRoot.appendChild(style)
+  document.body.insertAdjacentElement('beforebegin', shadowHost)
+  return shadowRoot
 }
 
 const EoaOverview = () => {
@@ -100,7 +97,7 @@ HoverScanExtension.displayName = 'HoverScanExtension'
 
 const Content = () => {
   const ref = useRef<HTMLDivElement>(null)
-  const { selection, clearSelection, selectPosition } = useMouseSelection(ref)
+  const { selection, clearSelection, selectPosition } = useMouseSelection(SHADOW_HOST_ID, ref)
   const [isOpen, setIsOpen] = useState(false)
   const maybeAddress = useMemo(() => selection?.toString()?.trim(), [selection])
   // @todo support regex parse or dom parse for better recognition
@@ -113,7 +110,7 @@ const Content = () => {
     }
   }, [isValidAddress])
 
-  useClickOutside(ref, () => {
+  useClickOutside(SHADOW_HOST_ID, () => {
     if (isOpen) {
       onClose()
     }

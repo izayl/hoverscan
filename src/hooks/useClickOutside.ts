@@ -1,13 +1,13 @@
-import { MutableRefObject, useEffect } from 'react'
+import { useEffect } from 'react'
 
 export const useClickOutside = (
-  ref: MutableRefObject<HTMLElement | null>,
+  shadowRoot: string,
   handler: (event: MouseEvent | TouchEvent) => void,
 ) => {
   useEffect(() => {
     const listener = (event: MouseEvent | TouchEvent) => {
-      const el = ref.current
-      if (!el || el.contains(event.target as Node)) return
+      const shadowRootEl = event.target as Element
+      if (shadowRootEl?.tagName?.toLowerCase() === shadowRoot.toLowerCase()) return
 
       handler(event)
     }
@@ -16,5 +16,5 @@ export const useClickOutside = (
     return () => {
       document.removeEventListener('click', listener)
     }
-  }, [ref, handler])
+  }, [shadowRoot, handler])
 }
