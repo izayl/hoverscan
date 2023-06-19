@@ -1,6 +1,6 @@
 import { atom, useAtom, useAtomValue, useSetAtom } from 'jotai'
 import { useEffect } from 'react'
-import { Chain, PublicClient, createPublicClient, http } from 'viem'
+import { type Chain, type PublicClient, createPublicClient, http } from 'viem'
 import { addressAtom } from './address'
 import { ALL_SUPPORTED_CHAINS } from '~/chain'
 

@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/react'
 import { useState } from 'react'
 import { Card } from '../Layout'
 import { SyncStatus as Component } from './'
-import ALL_SUPPORTED_CHAINS from '~/chain/all'
+import { ALL_SUPPORTED_CHAINS } from '~/chain/all'
 
 const meta: Meta<typeof Component> = {
   title: 'UI/SyncStatus',
@@ -18,8 +18,9 @@ export const Syncing: Story = {
     return (
       <Card>
         <Component
-          syncChains={ALL_SUPPORTED_CHAINS}
-          syncedChains={[]}
+          all={ALL_SUPPORTED_CHAINS.length}
+          synced={0}
+          existed={0}
         />
       </Card>
     )
@@ -36,8 +37,9 @@ export const Synced: Story = {
     return (
       <Card>
         <Component
-          syncChains={ALL_SUPPORTED_CHAINS}
-          syncedChains={syncedNetworks}
+          all={ALL_SUPPORTED_CHAINS.length}
+          synced={syncedNetworks.length}
+          existed={syncedNetworks.length}
           onSync={() => {
             setSyncedNetworks([])
             setTimeout(() => {

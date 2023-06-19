@@ -1,7 +1,7 @@
 import { useAtomValue, useSetAtom } from 'jotai'
 import React, { useMemo } from 'react'
 import { Row } from '../Layout'
-import { SyncButton } from './SyncStatus.styles'
+import { SyncButton } from './SyncButton'
 import { eoaSyncTimeAtom, syncChainsAtom, syncedEOAChains, syncedExistEOAStatesAtom } from '~/state/sync'
 
 type SyncStatusProps = {
