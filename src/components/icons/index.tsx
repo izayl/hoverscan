@@ -1,6 +1,6 @@
-import { CSS, styled } from '@stitches/react'
 import type { ComponentProps } from 'react'
 import React from 'react'
+import { tv } from 'tailwind-variants'
 
 export interface IconProps {
   fill?: string
@@ -11,7 +11,6 @@ export interface IconProps {
   label?: string
   onClick?: () => void
   className?: string
-  css?: CSS
 }
 
 export { default as Pin } from './Pin'
@@ -23,27 +22,19 @@ export { default as ENSMark } from './ENS'
 export { default as UNSMark } from './UNS'
 export { default as ChevronRight } from './ChevronRight'
 
-const IconWrapper = styled('span', {
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-  cursor: 'pointer',
-  borderRadius: 3,
-  background: '#fff',
-  padding: 3,
-
-  '&:hover': {
-    filter: 'brightness(0.95)',
-  },
+const icon = tv({
+  base: 'flex items-center justify-center cursor-pointer rounded-sm bg-white p-0.5 hover:brightness-[0.95]',
 })
 
 export const Icon: React.FC<{
   children?: React.ReactNode
   type?: React.ReactNode
-} & ComponentProps<typeof IconWrapper>> = ({
+  className?: string
+}> = ({
   children,
   type,
+  className,
   ...props
 }) => {
-  return (<IconWrapper {...props}>{ children || type }</IconWrapper>)
+  return (<span className={icon({ class: className })} {...props}>{ children || type }</span>)
 }
