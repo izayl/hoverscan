@@ -78,7 +78,8 @@
   },
   "manifest": {
     "permissions": [
-      "activeTab"
+      "activeTab",
+      "contextMenus"
     ]
   }
 }

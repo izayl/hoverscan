@@ -1,4 +1,5 @@
 import type { PlasmoCSConfig, PlasmoRender } from 'plasmo'
+import { usePageMessaging } from '@plasmohq/messaging/hook'
 import cssText from 'data-text:~/base.css'
 import { type Address, getAddress, isAddress } from 'viem'
 import { Provider, useAtom, useAtomValue } from 'jotai'
@@ -96,6 +97,7 @@ const HoverScanExtension = forwardRef<HTMLDivElement, HoverScanExtensionProps>((
 HoverScanExtension.displayName = 'HoverScanExtension'
 
 const Content = () => {
+  const { data } = usePageMessaging()
   const ref = useRef<HTMLDivElement>(null)
   const { selection, clearSelection, selectPosition } = useMouseSelection(SHADOW_HOST_ID, ref)
   const [isOpen, setIsOpen] = useState(false)
@@ -103,6 +105,8 @@ const Content = () => {
   // @todo support regex parse or dom parse for better recognition
   const isValidAddress = useMemo(() => isAddress(maybeAddress), [maybeAddress])
   const [address, setAddress] = useAtom(addressAtom)
+
+  console.log('data', data)
 
   useEffect(() => {
     if (isValidAddress) {
