@@ -22,7 +22,7 @@ type chainId = number
 const CHAIN_THEMES: Record<chainId, ChainTheme> = {
   [mainnet.id]: {
     chain: mainnet,
-    iconUrl: 'https://www.ankr.com/rpc/static/media/eth.3ee8ddd4.svg',
+    iconUrl: 'https://www.ankr.com/rpc/static/media/eth.4ca298ae.svg',
     background: 'rgba(98, 126, 234, 0.2)',
   },
   [arbitrumNova.id]: {
