@@ -11,7 +11,7 @@ export const useMouseSelection = (
 
   const onMouseUp = (e: MouseEvent) => {
     const shadowRootEl = e?.target as Element
-    if (shadowRootEl?.tagName?.toLowerCase() === root.toLowerCase()) return
+    if (!shadowRootEl || shadowRootEl?.tagName?.toLowerCase() === root.toLowerCase()) return
     const selection = window.getSelection()
     if (selection?.toString()) {
       setSelection(selection)
@@ -29,7 +29,7 @@ export const useMouseSelection = (
 
   const clearSelection = (e?: MouseEvent) => {
     const shadowRootEl = e?.target as Element
-    if (shadowRootEl?.tagName?.toLowerCase() === root.toLowerCase()) return
+    if (!shadowRootEl || shadowRootEl?.tagName?.toLowerCase() === root.toLowerCase()) return
     setSelection(null)
     if (window.getSelection) {
       if (window.getSelection()?.empty) { // Chrome
