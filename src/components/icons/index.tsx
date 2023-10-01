@@ -1,8 +1,7 @@
-import type { ComponentProps } from 'react'
 import React from 'react'
 import { tv } from 'tailwind-variants'
 
-export interface IconProps {
+export interface SVGProps {
   fill?: string
   filled?: boolean
   size?: string | number
@@ -11,6 +10,9 @@ export interface IconProps {
   label?: string
   onClick?: () => void
   className?: string
+}
+
+interface IconProps extends SVGProps {
   type?: React.ReactNode
 }
 

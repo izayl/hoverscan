@@ -1,8 +1,8 @@
 
 import React, { memo } from 'react'
-import type { IconProps } from '.'
+import type { SVGProps } from '.'
 
-const ChevronRight: React.FC<IconProps> = ({
+const ChevronRight: React.FC<SVGProps> = ({
   size = 16,
   width,
   height,

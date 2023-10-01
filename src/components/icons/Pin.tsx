@@ -1,8 +1,8 @@
 
 import React, { memo } from 'react'
-import type { IconProps } from '.'
+import type { SVGProps } from '.'
 
-const Pin: React.FC<IconProps> = ({
+const Pin: React.FC<SVGProps> = ({
   size = 18,
   width,
   height,

@@ -1,8 +1,8 @@
 
 import React, { memo } from 'react'
-import type { IconProps } from '.'
+import type { SVGProps } from '.'
 
-const UNSMark: React.FC<IconProps> = ({
+const UNSMark: React.FC<SVGProps> = ({
   size = 18,
   width,
   height,
