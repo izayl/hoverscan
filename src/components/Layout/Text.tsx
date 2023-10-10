@@ -2,7 +2,7 @@ import React from 'react'
 import { type VariantProps, tv } from 'tailwind-variants'
 
 const text = tv({
-  base: 'm-0 text-base',
+  base: 'm-0 text-base dark:text-white',
   variants: {
     font: {
       semibold: 'font-semibold',

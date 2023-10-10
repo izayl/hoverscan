@@ -26,7 +26,7 @@ export { default as UNSMark } from './UNS'
 export { default as ChevronRight } from './ChevronRight'
 
 const icon = tv({
-  base: 'flex items-center justify-center cursor-pointer rounded-sm bg-white p-0.5 hover:brightness-[0.95]',
+  base: 'flex items-center justify-center cursor-pointer rounded-sm bg-white dark:bg-transparent p-0.5 hover:brightness-[0.95] dark:hover:brightness-[1.05]',
 })
 
 export const Icon: React.FC<React.PropsWithChildren<IconProps>> = ({

@@ -19,7 +19,7 @@ const Header: React.FC<{
         {/* <Icon type={<Pin />} /> */}
         {/* <Icon type={<Sun />} /> */}
         {/* <Icon type={<Bookmark />} /> */}
-        <Icon type={<Close />} onClick={onClose} />
+        <Icon className="dark:invert" type={<Close />} onClick={onClose} />
       </Row>
     </Row>
   )

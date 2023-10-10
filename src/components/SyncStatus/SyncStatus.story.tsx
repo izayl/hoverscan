@@ -13,21 +13,26 @@ const meta: Meta<typeof Component> = {
 export default meta
 type Story = StoryObj<typeof Component>
 
+const CardWrapper: React.FC<React.PropsWithChildren<{ passedProps: unknown[] }>> = ({ children, passedProps }) => {
+  if (passedProps.every(x => !x)) return <>{children}</>
+  return <Card>{children}</Card>
+}
+
 export const Syncing: Story = {
-  render: () => {
+  render: (...args) => {
     return (
-      <Card>
+      <CardWrapper passedProps={args}>
         <Component
           all={ALL_SUPPORTED_CHAINS.length}
           synced={0}
           existed={0}
         />
-      </Card>
+      </CardWrapper>
     )
   },
 }
 export const Synced: Story = {
-  render: () => {
+  render: (...args) => {
     const allSynced = ALL_SUPPORTED_CHAINS.map((chain) => ({
       chain,
       synced: true,
@@ -35,7 +40,7 @@ export const Synced: Story = {
     }))
     const [syncedNetworks, setSyncedNetworks] = useState(allSynced)
     return (
-      <Card>
+      <CardWrapper passedProps={args}>
         <Component
           all={ALL_SUPPORTED_CHAINS.length}
           synced={syncedNetworks.length}
@@ -47,7 +52,7 @@ export const Synced: Story = {
             }, 2000)
           }}
         />
-      </Card>
+      </CardWrapper>
     )
   },
 }
