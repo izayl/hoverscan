@@ -2,9 +2,20 @@ import { tv } from 'tailwind-variants'
 
 export const contractAccountSlots = tv({
   slots: {
-    tag: 'rounded-xl py-0.5 px-2 text-gray-800 text-xs font-medium border border-slate-100',
+    tag: 'rounded-xl py-0.5 px-2 text-gray-800 text-xs font-medium border border-slate-100 dark:text-gray-300 dark:border-slate-700',
     metaInfoGroup: 'flex flex-row w-full',
-    metaInfoItem: 'inline-flex grow items-center justify-center border border-slate-100 rounded-md py-1 cursor-pointer transition-colors duration-200 ease-in-out hover:bg-slate-100',
+    metaInfoItem: `
+      inline-flex
+      grow
+      items-center justify-center
+      border border-slate-100 rounded-md py-1 cursor-pointer
+      transition-colors duration-200 ease-in-out
+      hover:bg-slate-100 
+      dark:border-slate-700
+      dark:hover:bg-slate-700
+      dark:text-gray-300
+      text-xs
+    `,
   },
 })
 

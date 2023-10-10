@@ -17,7 +17,7 @@ const ChevronRight: React.FC<SVGProps> = ({
       {...props}
       xmlns="http://www.w3.org/2000/svg"
     >
-      <path d="M6 12L10 8L6 4" stroke="black" strokeLinecap="round" strokeLinejoin="round"/>
+      <path d="M6 12L10 8L6 4" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round"/>
     </svg>
 
   )
