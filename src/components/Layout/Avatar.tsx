@@ -2,7 +2,7 @@ import React from 'react'
 import { type VariantProps, tv } from 'tailwind-variants'
 
 const avatar = tv({
-  base: 'w-12 h-12 rounded-full',
+  base: 'w-10 h-10 rounded-full',
 })
 
 type AvatarVariants = VariantProps<typeof avatar>

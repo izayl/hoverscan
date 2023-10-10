@@ -56,7 +56,7 @@ export const ContractAccount: React.FC<ContractAccountProps> = ({
         <IdentIcon address={address} />
         <Column gap justify="between">
           <Row gap align="baseline">
-            <span className="font-medium">{contractInfo.name}</span>
+            <span className="font-medium dark:text-gray-100">{contractInfo.name}</span>
             <span className={tag()}>Contract</span>
           </Row>
           <div className={addressText()}>

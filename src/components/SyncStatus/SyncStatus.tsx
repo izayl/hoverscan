@@ -28,7 +28,7 @@ export const SyncStatus: React.FC<SyncStatusProps> = ({
 
   return (
     <Row align="center" justify="between">
-      <span>{label}</span>
+      <span className="text-sm dark:text-gray-200">{label}</span>
       <SyncButton syncing={syncing} onClick={onSyncButtonClick}>
         {syncing ? `Syncing(${synced ?? 0}/${all})` : 'Synced ↺'}
       </SyncButton>

@@ -2,7 +2,7 @@ import React, { forwardRef } from 'react'
 import { type VariantProps, tv } from 'tailwind-variants'
 
 const card = tv({
-  base: 'p-4 flex flex-col bg-white gap-container min-w-[340px] max-w-[400px] shadow-card rounded-md font-sans',
+  base: 'p-4 flex flex-col bg-white dark:bg-slate-900 gap-container min-w-[340px] max-w-[400px] shadow-card rounded-md font-sans',
 })
 
 type CardVariants = VariantProps<typeof card>

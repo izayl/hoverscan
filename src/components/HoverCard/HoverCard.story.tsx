@@ -4,6 +4,7 @@ import { Contract as ContractAccount } from '../ContractAccount/ContractAccount.
 import { EOA as EOAAccount } from '../EOAAccount/EOAAccount.story'
 import { Synced, Syncing } from '../SyncStatus/SyncStatus.story'
 import { ChainOverview } from '../ChainOverview/ChainOverview.story'
+import { Row } from '../Layout'
 import { HoverCard as Component } from './HoverCard'
 
 const meta: Meta<typeof Component> = {
@@ -17,7 +18,7 @@ type Story = StoryObj<typeof Component>
 
 export const Account: Story = {
   render: () => (
-    <>
+    <Row gap>
       <Component>
         {EOAAccount.render(null, null)}
         {Syncing.render(null, null)}
@@ -27,7 +28,7 @@ export const Account: Story = {
         {Synced.render(null, null)}
         {ChainOverview.render(null, null)}
       </Component>
-    </>
+    </Row>
   ),
 }
 
