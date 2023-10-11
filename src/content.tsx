@@ -1,5 +1,5 @@
 import type { PlasmoCSConfig, PlasmoRender } from 'plasmo'
-import { usePageMessaging } from '@plasmohq/messaging/hook'
+import { useMessage } from '@plasmohq/messaging/hook'
 import cssText from 'data-text:~/base.css'
 import { type Address, getAddress, isAddress } from 'viem'
 import { Provider, useAtom, useAtomValue } from 'jotai'
@@ -97,16 +97,26 @@ const HoverScanExtension = forwardRef<HTMLDivElement, HoverScanExtensionProps>((
 HoverScanExtension.displayName = 'HoverScanExtension'
 
 const Content = () => {
-  const { data } = usePageMessaging()
   const ref = useRef<HTMLDivElement>(null)
-  const { selection, clearSelection, selectPosition } = useMouseSelection(SHADOW_HOST_ID, ref)
+  const { selection, clearSelection, selectPosition, updateSelection } = useMouseSelection(SHADOW_HOST_ID)
   const [isOpen, setIsOpen] = useState(false)
   const maybeAddress = useMemo(() => selection?.toString()?.trim(), [selection])
   // @todo support regex parse or dom parse for better recognition
   const isValidAddress = useMemo(() => isAddress(maybeAddress), [maybeAddress])
   const [address, setAddress] = useAtom(addressAtom)
 
-  console.log('data', data)
+  useMessage<
+    { selectionText: string },
+    unknown
+  >(async (req) => {
+    if (req.name === 'hoverscan:show-card') {
+      if (isAddress(req.body.selectionText)) {
+        updateSelection()
+        setAddress(getAddress(req.body.selectionText))
+        setIsOpen(true)
+      }
+    }
+  })
 
   useEffect(() => {
     if (isValidAddress) {
@@ -126,7 +136,6 @@ const Content = () => {
   }
 
   useEffect(() => {
-    console.log('maybeAddress', maybeAddress)
     if (isAddress(maybeAddress)) {
       setAddress(getAddress(maybeAddress))
     }

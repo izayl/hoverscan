@@ -1,14 +1,19 @@
-chrome.contextMenus.create({
-  id: 'hoverscan',
-  title: '示例菜单',
-  contexts: ['selection'], // 只在选中文本时显示菜单
+// add context menu only when installed
+chrome.runtime.onInstalled.addListener(() => {
+  chrome.contextMenus.create({
+    id: 'hoverscan',
+    title: 'Scan this address',
+    contexts: ['selection'],
+  })
 })
 
 chrome.contextMenus.onClicked.addListener((info, tab) => {
   if (info.menuItemId === 'hoverscan') {
-    chrome.tabs.sendMessage(tab.id!, {
-      type: 'hoverscan',
-      text: info.selectionText,
+    chrome.tabs.sendMessage(tab.id, {
+      name: 'hoverscan:show-card',
+      body: {
+        selectionText: info.selectionText,
+      },
     })
   }
 })
