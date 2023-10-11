@@ -1,17 +1,14 @@
-import { type MutableRefObject, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 
 const ZERO_POSITION = { x: 0, y: 0 }
 
 export const useMouseSelection = (
   root: string,
-  ref?: MutableRefObject<HTMLElement | null>,
 ) => {
   const [selectPosition, setSelectPosition] = useState(ZERO_POSITION)
-  const [selection, setSelection] = useState<Selection|null>(null)
+  const [selection, setSelection] = useState<Selection | null>(null)
 
-  const onMouseUp = (e: MouseEvent) => {
-    const shadowRootEl = e?.target as Element
-    if (!shadowRootEl || shadowRootEl?.tagName?.toLowerCase() === root.toLowerCase()) return
+  const updateSelection = () => {
     const selection = window.getSelection()
     if (selection?.toString()) {
       setSelection(selection)
@@ -25,6 +22,12 @@ export const useMouseSelection = (
       setSelection(null)
       setSelectPosition(ZERO_POSITION)
     }
+  }
+
+  const onMouseUp = (e: MouseEvent) => {
+    const shadowRootEl = e?.target as Element
+    if (!shadowRootEl || shadowRootEl?.tagName?.toLowerCase() === root.toLowerCase()) return
+    updateSelection()
   }
 
   const clearSelection = (e?: MouseEvent) => {
@@ -54,5 +57,6 @@ export const useMouseSelection = (
     selectPosition,
     selection,
     clearSelection,
+    updateSelection,
   }
 }
