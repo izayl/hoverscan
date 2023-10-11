@@ -12,7 +12,7 @@ import {
 
 export const mainnetClient = createPublicClient({
   chain: mainnet,
-  transport: http('https://rpc.ankr.com/eth'),
+  transport: http(),
 })
 
 export const arbitrumOneClient = createPublicClient({

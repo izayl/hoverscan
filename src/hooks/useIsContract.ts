@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { Address, PublicClient, isAddress } from 'viem'
+import { type Address, type PublicClient, isAddress } from 'viem'
 
 export const useIsContract = (client: PublicClient, address?: Address) => {
   const [isContract, setIsContract] = useState<boolean | undefined>(undefined)

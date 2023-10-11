@@ -7,5 +7,5 @@ export {
   mainnet,
   optimism,
   polygon,
-} from '@wagmi/chains'
-export { arbitrumNova } from './customChains'
+  arbitrumNova,
+} from 'viem/chains'
