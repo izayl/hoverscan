@@ -1,5 +1,39 @@
 # hoverscan
 
+## 0.1.2
+
+### Patch Changes
+
+- 7ed06a3: Supported dark mode
+- da248c8: Fixed selection issue on editable content
+- ca60e70: Fixed network list overflow style issue
+- 02ec69a: feat: Added more evm chains
+  - arbitrumNova
+  - aurora
+  - base
+  - boba
+  - canto
+  - celo
+  - classic
+  - confluxESpace
+  - cronos
+  - crossbell
+  - dogechain
+  - gnosis
+  - harmonyOne
+  - linea
+  - mantle
+  - metis
+  - moonbeam
+  - moonriver
+  - okc
+  - opBNB
+  - polygonZkEvm
+  - scroll
+  - zora
+  - zkSyncEra
+- 7f1da86: Supported contextMenu selection
+
 ## 0.1.1
 
 ### Patch Changes
