@@ -1,9 +1,9 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import type { Address, Chain } from 'viem'
 import { Column } from '../Layout'
 import { ChevronRight } from '../icons'
 import { overviewSlot } from './ChainOverview.styles'
-import CHAIN_THEMES from '~/chain/theme'
+import { DEFAULT_THEME, getChainTheme } from '~/chain/theme'
 
 type ChainOverview = {
   address: Address
@@ -20,12 +20,18 @@ export const ChainOverview: React.FC<React.PropsWithChildren<ChainOverview>> = (
   nativeBalance,
   txn,
 }) => {
-  const theme = CHAIN_THEMES[chain.id]
+  // const theme = getChainTheme(chain)
+  const [theme, setTheme] = useState(DEFAULT_THEME)
   const viewOnExplorer = () => {
     window.open(`${chain.blockExplorers.default.url}/address/${address}`, '_blank')
   }
   const { decimals, symbol } = chain.nativeCurrency
   const balance = nativeBalance * 10000n / BigInt(10 ** decimals)
+
+  useEffect(() => {
+    getChainTheme(chain).then(setTheme)
+  }, [])
+
   return (
     <div className={overview()} style={{ backgroundColor: theme.background }} onClick={viewOnExplorer}>
       <img className={networkImage()} src={theme.iconUrl} alt={chain.name} />

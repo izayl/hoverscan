@@ -1,0 +1,38 @@
+import type { ALL_SUPPORTED_CHAINS } from './all'
+import * as chains from './chains'
+
+export const icons: Record<'default' | typeof ALL_SUPPORTED_CHAINS[number]['id'], string> = {
+  default: require('/assets/icon.png'),
+
+  [chains.arbitrumNova.id]: require('/assets/networks/arbitrumNova.svg'),
+  [chains.arbitrumOne.id]: require('/assets/networks/arbitrumOne.svg'),
+  [chains.aurora.id]: require('/assets/networks/aurora.png'),
+  [chains.avalanche.id]: require('/assets/networks/avalanche.svg'),
+  [chains.base.id]: require('/assets/networks/base.png'),
+  [chains.boba.id]: require('/assets/networks/boba.png'),
+  [chains.bsc.id]: require('/assets/networks/bsc.svg'),
+  [chains.canto.id]: require('/assets/networks/canto.svg'),
+  [chains.celo.id]: require('/assets/networks/celo.svg'),
+  [chains.classic.id]: require('/assets/networks/classic.png'),
+  [chains.confluxESpace.id]: require('/assets/networks/conflux.svg'),
+  [chains.cronos.id]: require('/assets/networks/cronos.png'),
+  [chains.crossbell.id]: require('/assets/networks/crossbell.png'),
+  [chains.dogechain.id]: require('/assets/networks/dogechain.png'),
+  [chains.fantom.id]: require('/assets/networks/fantom.svg'),
+  [chains.gnosis.id]: require('/assets/networks/gnosis.svg'),
+  [chains.harmonyOne.id]: require('/assets/networks/harmonyOne.svg'),
+  [chains.linea.id]: require('/assets/networks/linea.svg'),
+  [chains.mainnet.id]: require('/assets/networks/mainnet.svg'),
+  [chains.mantle.id]: require('/assets/networks/mantle.svg'),
+  [chains.metis.id]: require('/assets/networks/metis.svg'),
+  [chains.moonbeam.id]: require('/assets/networks/moonbeam.svg'),
+  [chains.moonriver.id]: require('/assets/networks/moonriver.png'),
+  [chains.okc.id]: require('/assets/networks/okc.png'),
+  [chains.opBNB.id]: require('/assets/networks/opBNB.svg'),
+  [chains.optimism.id]: require('/assets/networks/optimism.svg'),
+  [chains.polygon.id]: require('/assets/networks/polygon.svg'),
+  [chains.polygonZkEvm.id]: require('/assets/networks/polygonZkEvm.svg'),
+  [chains.scroll.id]: require('/assets/networks/scroll.png'),
+  [chains.zkSyncEra.id]: require('/assets/networks/zkSyncEra.svg'),
+  [chains.zora.id]: require('/assets/networks/zora.svg'),
+}
