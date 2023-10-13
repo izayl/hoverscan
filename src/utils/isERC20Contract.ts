@@ -18,7 +18,7 @@ export const isERC20Contract = async (
     ])
     return totalSupply !== null
   } catch (error) {
-    console.error(error)
+    // console.error(error)
     return false
   }
 }

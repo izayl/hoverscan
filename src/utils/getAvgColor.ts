@@ -43,7 +43,7 @@ export const getAvgColor = async ({
     return defaultColor
   }
 
-  const DEFAULT_DOMINANT_DIVIDER = 23
+  const DEFAULT_DOMINANT_DIVIDER = 25
   const pixels = data.data
 
   let max = [0, 0, 0, 0, 0]

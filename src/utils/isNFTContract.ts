@@ -32,7 +32,7 @@ export const isNFTContract = async (
       isERC165: true,
     }
   } catch (error) {
-    console.error(error)
+    // console.error(error)
     return {
       isERC721: false,
       isERC1155: false,

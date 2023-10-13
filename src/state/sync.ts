@@ -3,6 +3,7 @@ import { useEffect } from 'react'
 import { type Chain, type PublicClient, createPublicClient, http } from 'viem'
 import { addressAtom } from './address'
 import { ALL_SUPPORTED_CHAINS } from '~/chain'
+import { rpcs } from '~/chain/rpcs'
 
 export const syncChainsAtom = atom<Chain[]>(ALL_SUPPORTED_CHAINS)
 
@@ -13,7 +14,7 @@ export const syncClientsAtom = atom<PublicClient[]>(get => {
   return chains.map(chain =>
     createPublicClient({
       chain,
-      transport: http(),
+      transport: http(rpcs[chain.id]),
     }),
   )
 })

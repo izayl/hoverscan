@@ -14,7 +14,7 @@ export const getChainTheme = async (chain: Chain): Promise<ChainTheme> => {
     return {
       chain,
       iconUrl: icons[chain.id],
-      background: await getAvgColor({ base64: icons[chain.id], alpha: 0.2, ignoredColors: [[255, 255, 255]] }),
+      background: await getAvgColor({ base64: icons[chain.id], alpha: 0.2, ignoredColors: [[10, 10, 10], [255, 255, 255]] }),
     }
   }
   return DEFAULT_THEME
