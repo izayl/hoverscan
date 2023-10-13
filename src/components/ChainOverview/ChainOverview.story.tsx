@@ -2,7 +2,7 @@
 import type { Meta, StoryObj } from '@storybook/react'
 import { Column } from '../Layout'
 import { ChainOverview as Component } from './'
-import CHAIN_THEMES from '~/chain/theme'
+import * as chains from '~/chain/chains'
 
 const meta: Meta<typeof Component> = {
   title: 'UI/ChainOverview',
@@ -16,11 +16,11 @@ export const ChainOverview: Story = {
   render: () => {
     return (
       <Column gap>
-        {Object.values(CHAIN_THEMES).map((theme) => (
+        {Object.values(chains).map((chain) => (
           <Component
-            key={theme.chain.id}
+            key={chain.id}
             address="0x1234567890123456789012345678901234567890"
-            chain={theme.chain}
+            chain={chain}
             nativeBalance={100n}
             txn={100}
           />
