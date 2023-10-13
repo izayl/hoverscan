@@ -3,12 +3,12 @@ name: Check
 on:
   workflow_dispatch:
   pull_request:
-    paths: 
+    paths:
       - src/**/*
       - package.json
       - pnpm-lock.yaml
-      - *.js
-      - *.ts
+      - '**.js'
+      - '**.ts'
 
 jobs:
   check:
