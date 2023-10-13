@@ -1,4 +1,5 @@
 import type { Chain } from 'viem'
+import iconBase64 from 'data-base64:~/assets/icon.png'
 import {
   arbitrumNova,
   arbitrumOne,
@@ -65,6 +66,12 @@ const CHAIN_THEMES: Record<chainId, ChainTheme> = {
     iconUrl: 'https://www.ankr.com/rpc/static/media/polygon.a5e91b5d.svg',
     background: 'rgba(121, 80, 221, 0.2)',
   },
+}
+
+export const DEFAULT_THEME: ChainTheme = {
+  chain: mainnet,
+  iconUrl: iconBase64,
+  background: 'rgba(213, 213, 213, 0.2)',
 }
 
 export default CHAIN_THEMES

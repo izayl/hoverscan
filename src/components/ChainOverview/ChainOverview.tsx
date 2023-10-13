@@ -3,7 +3,7 @@ import type { Address, Chain } from 'viem'
 import { Column } from '../Layout'
 import { ChevronRight } from '../icons'
 import { overviewSlot } from './ChainOverview.styles'
-import CHAIN_THEMES from '~/chain/theme'
+import CHAIN_THEMES, { DEFAULT_THEME } from '~/chain/theme'
 
 type ChainOverview = {
   address: Address
@@ -20,7 +20,7 @@ export const ChainOverview: React.FC<React.PropsWithChildren<ChainOverview>> = (
   nativeBalance,
   txn,
 }) => {
-  const theme = CHAIN_THEMES[chain.id]
+  const theme = CHAIN_THEMES[chain.id] ?? DEFAULT_THEME
   const viewOnExplorer = () => {
     window.open(`${chain.blockExplorers.default.url}/address/${address}`, '_blank')
   }
