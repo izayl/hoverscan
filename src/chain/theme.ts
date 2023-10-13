@@ -23,5 +23,5 @@ export const getChainTheme = async (chain: Chain): Promise<ChainTheme> => {
 export const DEFAULT_THEME: ChainTheme = {
   chain: mainnet,
   iconUrl: icons.default,
-  background: 'rgba(213, 213, 213, 0.2)',
+  background: 'rgba(79, 79, 79, 0.2)',
 }
