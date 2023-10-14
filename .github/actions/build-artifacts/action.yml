@@ -24,6 +24,6 @@ runs:
         tag_name: ${{ steps.v.outputs.version }}
         body: |
           # Changelog
-          Please see [CHANGELOG.md](https://github.com/hoverscan/blob/main/CHANGELOG.md) for more information on what has changed recently.
+          Please see [CHANGELOG.md](https://github.com/izayl/hoverscan/blob/main/CHANGELOG.md) for more information on what has changed recently.
         draft: false
         prerelease: false
