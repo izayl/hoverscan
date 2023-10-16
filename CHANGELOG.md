@@ -1,5 +1,11 @@
 # hoverscan
 
+## 0.1.3
+
+### Patch Changes
+
+- f2e7885: fix: unified webpack and parcel to share the same scheme path resolution strategy
+
 ## 0.1.2
 
 ### Patch Changes
